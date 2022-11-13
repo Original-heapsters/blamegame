@@ -1,0 +1,23 @@
+.commentcontainer {
+  display: flex;
+  padding: 10px 20px;
+}
+.img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+.namerplycontainer {
+  padding-left: 10px;
+}
+.h3 {
+  text-align: left;
+}
+.span {
+  padding-left: 10px;
+  font-size: 10px;
+  color: gray;
+}
+.rply {
+  background-color: lightgray;
+}
