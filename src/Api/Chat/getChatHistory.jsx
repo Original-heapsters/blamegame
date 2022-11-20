@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3000';
+const { REACT_APP_API_SERVER } = process.env;
 
 export default function getChatHistory(gameName) {
-  return axios.get(`${SERVER_URL}/game/${gameName}/chat`)
+  return axios.get(`${REACT_APP_API_SERVER}/game/${gameName}/chat`)
     .then(({ data }) => data);
 }
