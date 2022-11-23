@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
 
 const useAudio = (url) => {
   const [audio] = useState(new Audio(url));
@@ -29,7 +30,7 @@ function Player({ url }) {
 
   return (
     <div>
-      <button type="button" onClick={toggle}>{playing ? 'Pause' : 'Play'}</button>
+      <Button variant="outline-primary" onClick={toggle}>{playing ? 'Pause' : 'Play'}</Button>
     </div>
   );
 }
