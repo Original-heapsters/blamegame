@@ -8,7 +8,7 @@ async function signIn(postInfo) {
     data: postInfo,
     method: 'POST',
   });
-  console.log(data);
+  return data;
 }
 
 export default signIn;
