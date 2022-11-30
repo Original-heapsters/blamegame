@@ -2,21 +2,29 @@ import React from 'react';
 
 import styles from './comment.module.css';
 
-export default function Comment() {
+export default function Comment({
+  id,
+  player,
+  date,
+  message,
+}) {
+  const userImg = null || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
+  const readableDate = new Date(date).toLocaleString('en-US');
+
   return (
-    <div className={styles.commentcontainer}>
+    <div key={id} className={styles.commentcontainer}>
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Michelle_Borromeo_Actor_Headshots_30.jpg"
+        src={userImg}
         className={styles.img}
         alt="test"
       />
       <div className={styles.namerplycontainer}>
         <h3 className={styles.h3}>
-          name
-          <span className={styles.span}>7 hours ago</span>
+          { player }
+          <span className={styles.span}>{ readableDate }</span>
         </h3>
         <div className={styles.rply}>
-          hello does anyone know the name of the new company we acquired?
+          {message}
         </div>
       </div>
     </div>
