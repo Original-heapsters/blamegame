@@ -1,7 +1,9 @@
 import React from 'react';
+
 import styles from '../contentArea.module.css';
 
-import Comment from '../components/Comment';
+import Comment from './Comment';
+
 export default function ContentArea() {
   return (
     <div className={styles.contentArea}>
@@ -11,7 +13,7 @@ export default function ContentArea() {
       </div>
       <div className={styles.replycontainer}>
         <input type="text" name="reply" className={styles.reply} />
-        <button className={styles.btn}>submit</button>
+        <button type="button" className={styles.btn}>submit</button>
       </div>
     </div>
   );
