@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginModal from './LoginModal';
+import AuthenticationModal from './AuthenticationModal';
 import * as api from '../../Api/Authentication/signIn/index';
 
 function Header({
@@ -33,7 +33,7 @@ function Header({
   return (
     <div className="header">
       <div className="header__admin">
-        <LoginModal
+        <AuthenticationModal
           onClick={handleLogin}
           loggingIn={isLoggingIn}
           closeModal={handleLoginAbort}
