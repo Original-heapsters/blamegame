@@ -1,18 +1,46 @@
-import React from 'react';
-// import LoginModal from './Components/Modals/LoginModal';
-import CreateModalForm from './Components/Modals/LoginModal';
+import React, { useState } from 'react';
+import AuthenticationModal from './Components/Modals/AuthenticationModal';
 import Header from './Components/Modals/Header';
-import LoginForm from './Components/Modals/LoginForm';
 import Layout from './Components/Layout';
 
 export default function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [username, setUsername] = useState('PaPaBl3SsS');
+  const [password, setPassword] = useState('PaPaBl3SsS');
+  const [email, setEmail] = useState('PaPaBl3SsS');
+
+  const modalHandler = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const modalHideHandler = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const usernameHandler = () => {
+    setUsername(username);
+  };
+
+  const passwordHandler = () => {
+    setPassword(password);
+  };
+
+  const emailHandler = () => {
+    setEmail(email);
+  };
+
   return (
     <div className="App">
       <Layout />
-      <button type="button">Show Modal</button>
+      <button type="button" onClick={modalHandler}>Show Modal</button>
       <Header />
-      <CreateModalForm />
-      <LoginForm />
+      <AuthenticationModal
+        closeModal={modalHideHandler}
+        loggingIn={modalOpen}
+        setUsername={usernameHandler}
+        setPassword={passwordHandler}
+        setEmail={emailHandler}
+      />
     </div>
   );
 }

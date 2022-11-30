@@ -3,8 +3,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import LoginForm from './LoginForm';
 
-function CreateModalForm({
-  loggingIn, closeModal, login, setUsername, setSelectedFile, selectedFile,
+function AuthenticationModal({
+  loggingIn, closeModal, login, setUsername, setPassword, setEmail, setSelectedFile, selectedFile,
 }) {
   return (
     <Modal show={loggingIn} onHide={closeModal} dialogClassName="modal-90w">
@@ -15,6 +15,8 @@ function CreateModalForm({
         setSelectedFile={setSelectedFile}
         selectedFile={selectedFile}
         setUsername={setUsername}
+        setPassword={setPassword}
+        setEmail={setEmail}
       />
       <Modal.Footer>
         <Button variant="primary" onClick={login}>Submit</Button>
@@ -23,4 +25,4 @@ function CreateModalForm({
   );
 }
 
-export default CreateModalForm;
+export default AuthenticationModal;

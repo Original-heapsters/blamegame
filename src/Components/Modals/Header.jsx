@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import LoginModal from './LoginModal';
+import AuthenticationModal from './AuthenticationModal';
 import * as api from '../../Api/Authentication/signIn/index';
 
 function Header({
-  triggerLogin, username, setUsername,
+  triggerLogin, username, setUsername, password, setPassword, email, setEmail,
 }) {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const handleLogin = () => {
@@ -22,6 +22,8 @@ function Header({
 
     const formData = new FormData();
     formData.append('username', username);
+    formData.append('password', password);
+    formData.append('email', email);
 
     signIn(formData)
       .then(() => {
@@ -33,13 +35,17 @@ function Header({
   return (
     <div className="header">
       <div className="header__admin">
-        <LoginModal
+        <AuthenticationModal
           onClick={handleLogin}
           loggingIn={isLoggingIn}
           closeModal={handleLoginAbort}
           username={username}
+          password={password}
+          email={email}
           login={loginSubmit}
           setUsername={setUsername}
+          setPassword={setPassword}
+          setEmail={setEmail}
         />
         <h3 className="header__admin__username">{username}</h3>
       </div>
