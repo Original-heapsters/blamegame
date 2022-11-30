@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../contentArea.module.css';
+import styles from './contentArea.module.css';
 
 import Comment from './Comment';
 
