@@ -1,0 +1,42 @@
+.contentArea {
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  background-color: blue;
+}
+.h2 {
+  text-align: left;
+}
+.comments {
+  width: 100%;
+  height: calc(90% - 10px);
+  background-color: white;
+}
+
+.replycontainer {
+  width: 100%;
+  height: calc(10% - 19px);
+  background-color: hsl(0, 12%, 93%);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.reply {
+  width: 80%;
+  height: 50%;
+  border-radius: 20px;
+  border-style: none;
+}
+.btn {
+  height: 50%;
+  width: 15%;
+  border-radius: 20px;
+  border-style: none;
+  background-color: hsl(294, 68%, 34%);
+  color: white;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: hsl(294, 68%, 31%);
+  color: white;
+}
