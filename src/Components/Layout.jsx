@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from '../layout.module.css';
+import styles from './layout.module.css';
 
-import ContentArea from './ContentArea';
+import ContentArea from './Chat/ContentArea';
 
 export default function Layout() {
   return (

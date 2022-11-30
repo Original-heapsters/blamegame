@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../comment.module.css';
+import styles from './comment.module.css';
 
 export default function Comment() {
   return (
