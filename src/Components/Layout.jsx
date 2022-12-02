@@ -15,11 +15,11 @@ export default function Layout() {
           <button type="button">sign up</button>
         </div>
       </div>
-      <div className={styles.menucontentcontainer}>
+      <div className={styles.menuContentContainer}>
         <div className={styles.menu}>
           <div className={styles.games}>
-            <h3>games</h3>
-            <div className={styles.gamescontainer}>
+            <h5>games</h5>
+            <div className={styles.gamesContainer}>
               <ul>
                 <li>blame game</li>
                 <li>pin the tail on dev</li>
@@ -31,8 +31,8 @@ export default function Layout() {
             </div>
           </div>
           <div className={styles.online}>
-            <h3>online</h3>
-            <div className={styles.onlinecardcontainer}>
+            <h5>online</h5>
+            <div className={styles.onlineCardContainer}>
               <OnlineCard
                 img="https://e9g2x6t2.rocketcdn.me/wp-content/uploads/2022/06/linkedin-headshot-photography-examples-3-1.jpg"
                 name="michael look"
