@@ -1,4 +1,4 @@
-.commentcontainer {
+.commentContainer {
   display: flex;
   padding: 10px 20px;
 }
@@ -7,10 +7,10 @@
   height: 60px;
   border-radius: 5px;
 }
-.namerplycontainer {
+.nameReplyContainer {
   padding-left: 10px;
 }
-.h3 {
+.h7 {
   text-align: left;
 }
 .span {

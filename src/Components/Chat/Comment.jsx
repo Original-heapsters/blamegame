@@ -12,17 +12,17 @@ export default function Comment({
   const readableDate = new Date(date).toLocaleString('en-US');
 
   return (
-    <div key={id} className={styles.commentcontainer}>
+    <div key={id} className={styles.commentContainer}>
       <img
         src={userImg}
         className={styles.img}
         alt="test"
       />
-      <div className={styles.namerplycontainer}>
-        <h3 className={styles.h3}>
+      <div className={styles.nameReplyContainer}>
+        <h7 className={styles.h7}>
           { player }
           <span className={styles.span}>{ readableDate }</span>
-        </h3>
+        </h7>
         <div className={styles.rply}>
           {message}
         </div>

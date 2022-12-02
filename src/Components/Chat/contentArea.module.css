@@ -1,10 +1,13 @@
 .contentArea {
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
-  background-color: blue;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  position: relative;
 }
 .h2 {
   text-align: left;
+  padding-left: 15px;
+  padding-top: 15px;
 }
 .comments {
   width: 100%;
@@ -12,24 +15,38 @@
   background-color: white;
 }
 
-.replycontainer {
-  width: 100%;
-  height: calc(10% - 19px);
+.replyContainer {
+  position: absolute;
+  bottom: 0px;
+  width: calc(100% - 30px);
+  height: 50px;
   background-color: hsl(0, 12%, 93%);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 5px;
 }
-.reply {
+.replyCont {
+  border-radius: 5px;
   width: 80%;
   height: 50%;
-  border-radius: 20px;
+}
+.reply {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
   border-style: none;
+  padding-left: 10px;
+}
+.reply:focus {
+  outline: none;
 }
 .btn {
   height: 50%;
   width: 15%;
-  border-radius: 20px;
+  border-radius: 5px;
   border-style: none;
   background-color: hsl(294, 68%, 34%);
   color: white;

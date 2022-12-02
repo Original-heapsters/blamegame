@@ -41,8 +41,10 @@ export default function ContentArea() {
             )))
         }
       </div>
-      <div className={styles.replycontainer}>
-        <input type="text" name="reply" className={styles.reply} />
+      <div className={styles.replyContainer}>
+        <div className={styles.replyCont}>
+          <input type="text" name="reply" className={styles.reply} placeholder="Reply..." />
+        </div>
         <button type="button" className={styles.btn}>submit</button>
       </div>
     </div>

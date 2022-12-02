@@ -15,11 +15,11 @@ export default function Layout() {
           <button type="button">sign up</button>
         </div>
       </div>
-      <div className={styles.menucontentcontainer}>
+      <div className={styles.menuContentContainer}>
         <div className={styles.menu}>
           <div className={styles.games}>
-            <h3>games</h3>
-            <div className={styles.gamescontainer}>
+            <h5>games</h5>
+            <div className={styles.gamesContainer}>
               <ul>
                 <li>blame game</li>
                 <li>pin the tail on dev</li>
@@ -31,20 +31,17 @@ export default function Layout() {
             </div>
           </div>
           <div className={styles.online}>
-            <h3>online</h3>
-            <div className={styles.onlinecardcontainer}>
+            <h5>online</h5>
+            <div className={styles.onlineCardContainer}>
               <OnlineCard
                 img="https://e9g2x6t2.rocketcdn.me/wp-content/uploads/2022/06/linkedin-headshot-photography-examples-3-1.jpg"
                 name="michael look"
-                isonline={true}
               />
               <OnlineCard
                 img="https://e9g2x6t2.rocketcdn.me/wp-content/uploads/2022/06/linkedin-headshot-photography-examples-6-1.jpg"
-                isonline={true}
               />
               <OnlineCard
                 img="https://upload.wikimedia.org/wikipedia/commons/f/fe/Michelle_Borromeo_Actor_Headshots_30.jpg"
-                isonline={false}
               />
               <OnlineCard />
               <OnlineCard />
@@ -55,8 +52,9 @@ export default function Layout() {
           </div>
           <div className={styles.user}>rotciv93</div>
         </div>
-        <div className={styles.content}></div>
-        <ContentArea />
+        <div className={styles.content}>
+          <ContentArea />
+        </div>
       </div>
     </div>
   );

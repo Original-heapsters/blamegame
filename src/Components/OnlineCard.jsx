@@ -7,17 +7,17 @@ export default function OnlineCard({
   isonline,
 }) {
   return (
-    <div className={styles.onlinecard}>
-      <div className={styles.imgcontainer}>
+    <div className={styles.onlineCard}>
+      <div className={styles.imgContainer}>
         <img alt="" src={img} />
         <div
-          className={styles.isonline}
+          className={styles.isOnline}
           style={{ backgroundColor: `${isonline ? 'lime' : 'grey'}` }}
         >
           {' '}
         </div>
       </div>
-      <h5>{name}</h5>
+      <h7>{name}</h7>
     </div>
   );
 }
