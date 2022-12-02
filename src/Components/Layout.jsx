@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './layout.module.css';
 import OnlineCard from './OnlineCard';
 import ContentArea from './Chat/ContentArea';
+import AuthenticationModal from './Modals/AuthenticationModal';
+import Header from './Modals/Header';
 
 export default function Layout() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [username, setUsername] = useState('PaPaBl3SsS');
+  const [password, setPassword] = useState('PaPaBl3SsS');
+  const [email, setEmail] = useState('PaPaBl3SsS');
+
+  const modalHandler = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const modalHideHandler = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const usernameHandler = () => {
+    setUsername(username);
+  };
+
+  const passwordHandler = () => {
+    setPassword(password);
+  };
+
+  const emailHandler = () => {
+    setEmail(email);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -11,8 +37,16 @@ export default function Layout() {
           <h1>BLAME GAME</h1>
         </div>
         <div className={styles.credentials}>
-          <button type="button">sign in</button>
-          <button type="button">sign up</button>
+          <button type="button" onClick={modalHandler}>sign in</button>
+          <button type="button" onClick={modalHandler}>sign up</button>
+          <Header />
+          <AuthenticationModal
+            closeModal={modalHideHandler}
+            loggingIn={modalOpen}
+            setUsername={usernameHandler}
+            setPassword={passwordHandler}
+            setEmail={emailHandler}
+          />
         </div>
       </div>
       <div className={styles.menuContentContainer}>
