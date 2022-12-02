@@ -36,15 +36,12 @@ export default function Layout() {
               <OnlineCard
                 img="https://e9g2x6t2.rocketcdn.me/wp-content/uploads/2022/06/linkedin-headshot-photography-examples-3-1.jpg"
                 name="michael look"
-                isonline={true}
               />
               <OnlineCard
                 img="https://e9g2x6t2.rocketcdn.me/wp-content/uploads/2022/06/linkedin-headshot-photography-examples-6-1.jpg"
-                isonline={true}
               />
               <OnlineCard
                 img="https://upload.wikimedia.org/wikipedia/commons/f/fe/Michelle_Borromeo_Actor_Headshots_30.jpg"
-                isonline={false}
               />
               <OnlineCard />
               <OnlineCard />
@@ -55,8 +52,9 @@ export default function Layout() {
           </div>
           <div className={styles.user}>rotciv93</div>
         </div>
-        <div className={styles.content}></div>
-        <ContentArea />
+        <div className={styles.content}>
+          <ContentArea />
+        </div>
       </div>
     </div>
   );
