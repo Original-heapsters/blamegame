@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './layout.module.css';
 import OnlineCard from './OnlineCard';
 import ContentArea from './Chat/ContentArea';
+import GameListItem from './Game/gameListItem';
 import AuthenticationModal from './Modals/AuthenticationModal';
 import Header from './Modals/Header';
+import getGames from '../Api/Game/getGames';
 
 export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
   const [username, setUsername] = useState('PaPaBl3SsS');
   const [password, setPassword] = useState('PaPaBl3SsS');
   const [email, setEmail] = useState('PaPaBl3SsS');
+  const [gameList, setGameList] = useState([]);
+
+  useEffect(() => {
+    getGames()
+      .then((games) => {
+        setGameList(games);
+      });
+  }, []);
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);
@@ -30,6 +40,7 @@ export default function Layout() {
   const emailHandler = () => {
     setEmail(email);
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -55,12 +66,9 @@ export default function Layout() {
             <h5>games</h5>
             <div className={styles.gamesContainer}>
               <ul>
-                <li>blame game</li>
-                <li>pin the tail on dev</li>
-                <li>whos there</li>
-                <li>tic tac drink</li>
-                <li>truth or dare </li>
-                <li>blame game</li>
+                {
+                  gameList.map((game) => <GameListItem key={game.id} game={game} />)
+                }
               </ul>
             </div>
           </div>
