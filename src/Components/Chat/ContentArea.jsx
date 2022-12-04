@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './contentArea.module.css';
 import Comment from './Comment';
+import Hook from './Hook';
 import getChatHistory from '../../Api/Chat/getChatHistory';
 
 export default function ContentArea() {
@@ -21,7 +22,7 @@ export default function ContentArea() {
         {
           messageLog.map((message) => (message.type === 'hook'
             ? (
-              <Comment
+              <Hook
                 key={message.id}
                 player={message.player}
                 date={message.date}
