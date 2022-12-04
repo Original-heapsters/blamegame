@@ -6,6 +6,7 @@ import GameListItem from './Game/gameListItem';
 import AuthenticationModal from './Modals/AuthenticationModal';
 import Header from './Modals/Header';
 import getGames from '../Api/Game/getGames';
+import seedBackend from '../Api/Debug/seed';
 
 export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,6 +20,10 @@ export default function Layout() {
       .then((games) => {
         setGameList(games);
       });
+  }, []);
+
+  useEffect(() => {
+    seedBackend();
   }, []);
 
   const modalHandler = () => {
