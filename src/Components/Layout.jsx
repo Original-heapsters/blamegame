@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './layout.module.css';
-import OnlineCard from './OnlineCard';
+import OnlineCard from './User/OnlineCard';
 import ContentArea from './Chat/ContentArea';
 import GameListItem from './Game/gameListItem';
 import AuthenticationModal from './Modals/AuthenticationModal';
@@ -13,6 +13,7 @@ export default function Layout() {
   const [username, setUsername] = useState('PaPaBl3SsS');
   const [password, setPassword] = useState('PaPaBl3SsS');
   const [email, setEmail] = useState('PaPaBl3SsS');
+  const [loggedInUser, setLoggedInUser] = useState();
   const [gameList, setGameList] = useState([]);
 
   useEffect(() => {
@@ -24,6 +25,16 @@ export default function Layout() {
 
   useEffect(() => {
     seedBackend();
+  }, []);
+
+  useEffect(() => {
+    // Simulate a login
+    const defaultUser = {
+      username: 'testUser',
+      email: 'testuser@email.com',
+      profileUrl: 'https://www.shutterstock.com/image-photo/bearded-man-headshot-portrait-600w-1009304353.jpg',
+    };
+    setLoggedInUser(defaultUser);
   }, []);
 
   const modalHandler = () => {
@@ -97,7 +108,16 @@ export default function Layout() {
               <OnlineCard />
             </div>
           </div>
-          <div className={styles.user}>rotciv93</div>
+          { loggedInUser
+            ? (
+              <OnlineCard
+                name={loggedInUser.username}
+                img={loggedInUser.profileUrl}
+                isOnline
+                isCurrentUser
+              />
+            )
+            : <div />}
         </div>
         <div className={styles.content}>
           <ContentArea />
