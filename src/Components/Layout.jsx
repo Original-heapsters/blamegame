@@ -14,6 +14,7 @@ export default function Layout() {
   const [password, setPassword] = useState('PaPaBl3SsS');
   const [email, setEmail] = useState('PaPaBl3SsS');
   const [loggedInUser, setLoggedInUser] = useState();
+  const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
 
   useEffect(() => {
@@ -21,6 +22,37 @@ export default function Layout() {
       .then((games) => {
         setGameList(games);
       });
+  }, []);
+
+  useEffect(() => {
+    const debugPlayers = [
+      {
+        username: 'wuddy',
+        profileUrl: 'https://appamatix.com/wp-content/uploads/2016/05/04-450x427.jpg',
+        isOnline: true,
+      },
+      {
+        username: 'ye',
+        profileUrl: 'https://1fid.com/wp-content/uploads/2022/07/funny-profile-pic-9.jpg',
+        isOnline: false,
+      },
+      {
+        username: 'kash',
+        profileUrl: 'https://i.pinimg.com/736x/f6/64/d2/f664d2e17e2e6649ddf66c12a7c7c84c.jpg',
+        isOnline: true,
+      },
+      {
+        username: 'huahua',
+        profileUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPS8h-UPnSt4aC84WsbaWBVWabuqR_UDQ3FzuW_kHs6slDy0BFjAhSUGe2_SoXla2cyNY&usqp=CAU',
+        isOnline: true,
+      },
+      {
+        username: 'milton',
+        profileUrl: 'https://i.pinimg.com/550x/6b/95/01/6b9501905d858837e8258c474c1f99c5.jpg',
+        isOnline: false,
+      },
+    ];
+    setPlayerList(debugPlayers);
   }, []);
 
   useEffect(() => {
@@ -91,21 +123,16 @@ export default function Layout() {
           <div className={styles.online}>
             <h5>online</h5>
             <div className={styles.onlineCardContainer}>
-              <OnlineCard
-                img="https://e9g2x6t2.rocketcdn.me/wp-content/uploads/2022/06/linkedin-headshot-photography-examples-3-1.jpg"
-                name="michael look"
-              />
-              <OnlineCard
-                img="https://e9g2x6t2.rocketcdn.me/wp-content/uploads/2022/06/linkedin-headshot-photography-examples-6-1.jpg"
-              />
-              <OnlineCard
-                img="https://upload.wikimedia.org/wikipedia/commons/f/fe/Michelle_Borromeo_Actor_Headshots_30.jpg"
-              />
-              <OnlineCard />
-              <OnlineCard />
-              <OnlineCard />
-              <OnlineCard />
-              <OnlineCard />
+              {
+                playerList.map((player) => (
+                  <OnlineCard
+                    key={player.id}
+                    name={player.username}
+                    img={player.profileUrl}
+                    isOnline={player.isOnline}
+                  />
+                ))
+              }
             </div>
           </div>
           { loggedInUser
