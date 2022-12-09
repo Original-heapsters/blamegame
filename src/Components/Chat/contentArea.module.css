@@ -1,36 +1,38 @@
 .contentArea {
   width: 100%;
-  height: 100%;
+  height: 90vh;
   background-color: white;
-  position: relative;
 }
 .h2 {
   text-align: left;
   padding-left: 15px;
   padding-top: 15px;
+  margin:0;
 }
 .comments {
   width: 100%;
-  height: calc(90% - 10px);
+  height: calc(100% - 86px);
   background-color: white;
+  overflow: scroll;
+  top:0;
+  bottom: 0;
+  
 }
 
 .replyContainer {
   position: absolute;
   bottom: 0px;
-  width: calc(100% - 30px);
+  width: min(81.5vw, 80%);
   height: 50px;
   background-color: hsl(0, 12%, 93%);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-left: 15px;
-  margin-right: 15px;
   border-radius: 5px;
 }
 .replyCont {
   border-radius: 5px;
-  width: 80%;
+  width: 85%;
   height: 50%;
 }
 .reply {
@@ -50,6 +52,7 @@
   border-style: none;
   background-color: hsl(294, 68%, 34%);
   color: white;
+  margin-left: 10px
 }
 
 .btn:hover {
