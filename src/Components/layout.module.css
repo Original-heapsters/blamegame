@@ -5,7 +5,7 @@
 }
 .container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -51,6 +51,7 @@ button:hover {
 .menuContentContainer {
   display: flex;
   height: 100%;
+  width:100%;
 }
 .menu {
   position: relative;
@@ -63,6 +64,9 @@ button:hover {
 .games {
   height: calc((100vh - 50px) / 2);
   text-align: center;
+}
+h5{
+  margin: 0;
 }
 .gamesContainer {
   width: 100%;
