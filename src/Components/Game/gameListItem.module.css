@@ -1,0 +1,8 @@
+.gameListItem {
+  width: 100%;
+  text-align: left;
+  margin-top: 5px;
+  outline: none;
+  outline-offset: none;
+  box-shadow: none;
+}

@@ -16,11 +16,13 @@ export default function Layout() {
   const [loggedInUser, setLoggedInUser] = useState();
   const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
+  const [currentGame, setCurrentGame] = useState();
 
   useEffect(() => {
     getGames()
       .then((games) => {
         setGameList(games);
+        setCurrentGame(games[0]);
       });
   }, []);
 
@@ -115,7 +117,13 @@ export default function Layout() {
             <div className={styles.gamesContainer}>
               <ul>
                 {
-                  gameList.map((game) => <GameListItem key={game.id} game={game} />)
+                  gameList.map((game) => (
+                    <GameListItem
+                      key={game.id}
+                      game={game}
+                      isCurrentGame={game.name === currentGame.name}
+                    />
+                  ))
                 }
               </ul>
             </div>
@@ -147,7 +155,7 @@ export default function Layout() {
             : <div />}
         </div>
         <div className={styles.content}>
-          <ContentArea />
+          <ContentArea currentGame="wada" />
         </div>
       </div>
     </div>

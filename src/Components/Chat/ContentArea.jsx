@@ -5,7 +5,9 @@ import Comment from './Comment';
 import Hook from './Hook';
 import getChatHistory from '../../Api/Chat/getChatHistory';
 
-export default function ContentArea() {
+export default function ContentArea({
+  currentGame,
+}) {
   const [messageLog, setMessageLog] = useState([]);
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function ContentArea() {
 
   return (
     <div className={styles.contentArea}>
-      <h2 className={styles.h2}>title goes here</h2>
+      <h2 className={styles.h2}>{currentGame}</h2>
       <div className={styles.comments}>
         {
           messageLog.map((message) => (message.type === 'hook'
