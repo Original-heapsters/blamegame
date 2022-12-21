@@ -7,6 +7,7 @@ import AuthenticationModal from './Modals/AuthenticationModal';
 import Header from './Modals/Header';
 import getGames from '../Api/Game/getGames';
 import seedBackend from '../Api/Debug/seed';
+import * as api from '../Api/Authentication/signIn/index';
 
 export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,6 +47,9 @@ export default function Layout() {
     setEmail(email);
   };
 
+  const loginHandler = async (tmp) => {
+    await api.signIn(tmp);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -58,10 +62,11 @@ export default function Layout() {
           <Header />
           <AuthenticationModal
             closeModal={modalHideHandler}
-            loggingIn={modalOpen}
+            showAuthenticationModal={modalOpen}
             setUsername={usernameHandler}
             setPassword={passwordHandler}
             setEmail={emailHandler}
+            login={loginHandler}
           />
         </div>
       </div>

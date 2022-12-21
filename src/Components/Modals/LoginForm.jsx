@@ -6,8 +6,8 @@ import Form from 'react-bootstrap/Form';
 
 function LoginForm({ setUsername, setPassword, setEmail }) {
   const handleUsernameChange = (event) => {
-    const fieldVal = event.target.value;
-    setUsername(fieldVal);
+    const userVal = event.target.value;
+    setUsername(userVal);
   };
   const handlePasswordChange = (event) => {
     const fieldVal = event.target.value;
