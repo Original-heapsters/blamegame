@@ -16,7 +16,15 @@
   overflow: scroll;
   top:0;
   bottom: 0;
-  
+
+}
+
+.gameTitle {
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 15px;
+  margin:0;
+  height: 50px;
 }
 
 .replyContainer {

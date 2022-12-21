@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-
+import Button from 'react-bootstrap/Button';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
 import Hook from './Hook';
+import RulesetModal from '../Modals/Ruleset';
 import getChatHistory from '../../Api/Chat/getChatHistory';
 
 export default function ContentArea({
   currentGame,
 }) {
   const [messageLog, setMessageLog] = useState([]);
+  const [showRules, setShowRules] = useState(false);
+  const [ruleset, setRuleset] = useState({});
 
   useEffect(() => {
     getChatHistory('blamegame_api')
@@ -17,9 +20,13 @@ export default function ContentArea({
       });
   }, []);
 
+  const showRulesHandler = () => {
+    setShowRules(!showRules);
+  };
+
   return (
     <div className={styles.contentArea}>
-      <h2 className={styles.h2}>{currentGame}</h2>
+      <Button className={styles.gameTitle} onClick={showRulesHandler}>{currentGame}</Button>
       <div className={styles.comments}>
         {
           messageLog.map((message) => (message.type === 'hook'
@@ -50,6 +57,7 @@ export default function ContentArea({
         </div>
         <button type="button" className={styles.btn}>submit</button>
       </div>
+      <RulesetModal showRules={showRules} closeModal={showRulesHandler} gameName={currentGame} />
     </div>
   );
 }
