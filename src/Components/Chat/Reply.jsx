@@ -6,7 +6,7 @@ export default function Reply({ socket }) {
   const sendMessage = () => {
     socket.emit('chatMessage', { game: 'general', user: 'testUser', msg });
   };
-  return ( 
+  return (
     <div className={styles.replyContainer}>
       <div className={styles.replyCont}>
         <input type="text" name="reply" className={styles.reply} placeholder="Reply..." onChange={(e) => { setMsg(e.target.value); }} />
