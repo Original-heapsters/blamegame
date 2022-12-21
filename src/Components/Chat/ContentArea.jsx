@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-
+import io from 'socket.io-client';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
 import Hook from './Hook';
 import getChatHistory from '../../Api/Chat/getChatHistory';
+import Reply from './Reply';
 
-export default function ContentArea({
-  currentGame,
-}) {
+const socket = io.connect('https://blame-game-api.onrender.com');
+
+export default function ContentArea({ currentGame }) {
   const [messageLog, setMessageLog] = useState([]);
 
   useEffect(() => {
@@ -15,8 +16,20 @@ export default function ContentArea({
       .then((log) => {
         setMessageLog(log);
       });
+      
   }, []);
-
+  
+  function newMessageHandler(data){
+    console.log(data);
+    setMessageLog((prev) => [...prev, data]);
+  }
+  useEffect(() => {
+    socket.on('general', newMessageHandler);
+   console.log("inside useEffect socket")
+    return () =>{
+      socket.off('general', newMessageHandler);
+    }
+  }, []);
   return (
     <div className={styles.contentArea}>
       <h2 className={styles.h2}>{currentGame}</h2>
@@ -42,14 +55,9 @@ export default function ContentArea({
                 message={message.message}
               />
             )))
-        }
+        } 
       </div>
-      <div className={styles.replyContainer}>
-        <div className={styles.replyCont}>
-          <input type="text" name="reply" className={styles.reply} placeholder="Reply..." />
-        </div>
-        <button type="button" className={styles.btn}>submit</button>
-      </div>
+      <Reply socket={socket}/>
     </div>
   );
 }
