@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styles from './reply.module.css';
 
-export default function Reply({socket}) {
-  console.log(socket);
+export default function Reply({ socket }) {
   const [msg, setMsg] = useState('hello');
   const sendMessage = () => {
     socket.emit('chatMessage', { game: 'general', user: 'testUser', msg });
