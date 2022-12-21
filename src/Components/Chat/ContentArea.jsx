@@ -16,19 +16,16 @@ export default function ContentArea({ currentGame }) {
       .then((log) => {
         setMessageLog(log);
       });
-      
   }, []);
-  
-  function newMessageHandler(data){
-    console.log(data);
+
+  function newMessageHandler(data) {
     setMessageLog((prev) => [...prev, data]);
   }
   useEffect(() => {
     socket.on('general', newMessageHandler);
-   console.log("inside useEffect socket")
-    return () =>{
+    return () => {
       socket.off('general', newMessageHandler);
-    }
+    };
   }, []);
   return (
     <div className={styles.contentArea}>
@@ -55,9 +52,9 @@ export default function ContentArea({ currentGame }) {
                 message={message.message}
               />
             )))
-        } 
+        }
       </div>
-      <Reply socket={socket}/>
+      <Reply socket={socket} />
     </div>
   );
 }
