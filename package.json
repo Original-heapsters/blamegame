@@ -22,8 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "./node_modules/.bin/eslint src/**/*.jsx",
-    "lint-fix": "./node_modules/.bin/eslint src/**/*.jsx --fix",
+    "lint": "eslint src --ext .jsx",
+    "lint-fix": "eslint src --ext .jsx --fix",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -51,7 +51,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.29.0",
+    "eslint": "^8.30.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
