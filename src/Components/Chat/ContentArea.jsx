@@ -5,11 +5,14 @@ import Comment from './Comment';
 import Hook from './Hook';
 import getChatHistory from '../../Api/Chat/getChatHistory';
 import Reply from './Reply';
+import Modal from '../modal/modal';
+import Accordion from '../modal/Accordion';
 
 const socket = io.connect('https://blame-game-api.onrender.com');
 
 export default function ContentArea({ currentGame }) {
   const [messageLog, setMessageLog] = useState([]);
+  const [isOpen, setisOpen] = useState(false);
 
   useEffect(() => {
     getChatHistory('blamegame_api')
@@ -29,7 +32,8 @@ export default function ContentArea({ currentGame }) {
   }, []);
   return (
     <div className={styles.contentArea}>
-      <h2 className={styles.h2}>{currentGame}</h2>
+      <button type="button" className={styles.button} onClick={() => { setisOpen(true); }}>{currentGame}</button>
+      <Modal open={isOpen} onClose={() => { setisOpen(false); }} currentGame={currentGame}><Accordion title="section-1" content="hello" /></Modal>
       <div className={styles.comments}>
         {
           messageLog.map((message) => (message.type === 'hook'
