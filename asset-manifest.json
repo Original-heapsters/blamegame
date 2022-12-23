@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/blamegame/static/css/main.d020468f.css",
-    "main.js": "/blamegame/static/js/main.bbc91022.js",
+    "main.css": "/blamegame/static/css/main.ec38c1e2.css",
+    "main.js": "/blamegame/static/js/main.312af2f4.js",
     "static/js/496.fdb07c1b.chunk.js": "/blamegame/static/js/496.fdb07c1b.chunk.js",
     "index.html": "/blamegame/index.html",
-    "main.d020468f.css.map": "/blamegame/static/css/main.d020468f.css.map",
-    "main.bbc91022.js.map": "/blamegame/static/js/main.bbc91022.js.map",
+    "main.ec38c1e2.css.map": "/blamegame/static/css/main.ec38c1e2.css.map",
+    "main.312af2f4.js.map": "/blamegame/static/js/main.312af2f4.js.map",
     "496.fdb07c1b.chunk.js.map": "/blamegame/static/js/496.fdb07c1b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d020468f.css",
-    "static/js/main.bbc91022.js"
+    "static/css/main.ec38c1e2.css",
+    "static/js/main.312af2f4.js"
   ]
 }
