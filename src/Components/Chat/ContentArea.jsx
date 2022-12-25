@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import io from 'socket.io-client';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
 import Hook from './Hook';
 import RulesetModal from '../Modals/Ruleset';
 import getChatHistory from '../../Api/Chat/getChatHistory';
+import Reply from './Reply';
 
-export default function ContentArea({
-  currentGame,
-}) {
+const socket = io.connect('https://blame-game-api.onrender.com');
+
+export default function ContentArea({ currentGame }) {
   const [messageLog, setMessageLog] = useState([]);
   const [showRules, setShowRules] = useState(false);
-  const [ruleset, setRuleset] = useState({});
+  // const [ruleset, setRuleset] = useState({});
 
   useEffect(() => {
     getChatHistory('blamegame_api')
@@ -24,6 +26,15 @@ export default function ContentArea({
     setShowRules(!showRules);
   };
 
+  function newMessageHandler(data) {
+    setMessageLog((prev) => [...prev, data]);
+  }
+  useEffect(() => {
+    socket.on('general', newMessageHandler);
+    return () => {
+      socket.off('general', newMessageHandler);
+    };
+  }, []);
   return (
     <div className={styles.contentArea}>
       <Button className={styles.gameTitle} onClick={showRulesHandler}>{currentGame}</Button>
@@ -58,6 +69,7 @@ export default function ContentArea({
         <button type="button" className={styles.btn}>submit</button>
       </div>
       <RulesetModal showRules={showRules} closeModal={showRulesHandler} gameName={currentGame} />
+      <Reply socket={socket} />
     </div>
   );
 }
