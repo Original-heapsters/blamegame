@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import io from 'socket.io-client';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
 import Hook from './Hook';
-import RulesetModal from '../Modals/Ruleset';
 import getChatHistory from '../../Api/Chat/getChatHistory';
 import Reply from './Reply';
 import Modal from '../modal/modal';
@@ -14,8 +12,6 @@ const socket = io.connect('https://blame-game-api.onrender.com');
 
 export default function ContentArea({ currentGame }) {
   const [messageLog, setMessageLog] = useState([]);
-  const [showRules, setShowRules] = useState(false);
-  // const [ruleset, setRuleset] = useState({});
   const [isOpen, setisOpen] = useState(false);
 
   useEffect(() => {
@@ -24,10 +20,6 @@ export default function ContentArea({ currentGame }) {
         setMessageLog(log);
       });
   }, []);
-
-  const showRulesHandler = () => {
-    setShowRules(!showRules);
-  };
 
   function newMessageHandler(data) {
     setMessageLog((prev) => [...prev, data]);
@@ -40,7 +32,6 @@ export default function ContentArea({ currentGame }) {
   }, []);
   return (
     <div className={styles.contentArea}>
-      <Button className={styles.gameTitle} onClick={showRulesHandler}>{currentGame}</Button>
       <button type="button" className={styles.button} onClick={() => { setisOpen(true); }}>{currentGame}</button>
       <Modal open={isOpen} onClose={() => { setisOpen(false); }} currentGame={currentGame}><Accordion title="section-1" content="hello" /></Modal>
       <div className={styles.comments}>
@@ -73,7 +64,6 @@ export default function ContentArea({ currentGame }) {
         </div>
         <button type="button" className={styles.btn}>submit</button>
       </div>
-      <RulesetModal showRules={showRules} closeModal={showRulesHandler} gameName={currentGame} />
       <Reply socket={socket} />
     </div>
   );
