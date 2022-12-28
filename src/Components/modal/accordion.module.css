@@ -1,0 +1,29 @@
+
+  
+  
+  
+  .accordion_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+    background-color: rgb(63, 15, 64);
+    color: white;
+  }
+  
+  .accordion_title:hover {
+    background-color: hsl(299, 62%, 20%);
+    color: white;
+  }
+  
+  .accordion_title,
+  .accordion_content {
+    padding: 1rem;
+  }
+  
+  .accordion_content {
+    background-color: rgb(63, 15, 64);
+    color:white;
+  }
+  
+ 
