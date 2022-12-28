@@ -58,6 +58,12 @@ export default function ContentArea({ currentGame }) {
             )))
         }
       </div>
+      <div className={styles.replyContainer}>
+        <div className={styles.replyCont}>
+          <input type="text" name="reply" className={styles.reply} placeholder="Reply..." />
+        </div>
+        <button type="button" className={styles.btn}>submit</button>
+      </div>
       <Reply socket={socket} />
     </div>
   );
