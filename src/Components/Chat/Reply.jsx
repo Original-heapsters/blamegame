@@ -11,7 +11,6 @@ export default function Reply({ socket }) {
   useEffect(() => {
     const listener = (event) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        console.log('Enter key was pressed. Run your function.');
         event.preventDefault();
         sendMessage();
         setMsg('');
