@@ -1,0 +1,13 @@
+.rule_text {
+    text-align: left;
+}
+
+.rule_info {
+    position: relative;
+    font-size: 15px;
+    float: right;
+}
+
+.rule_points {
+    float: right;
+}

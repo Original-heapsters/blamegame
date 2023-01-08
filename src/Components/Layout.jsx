@@ -17,7 +17,7 @@ export default function Layout() {
   const [loggedInUser, setLoggedInUser] = useState();
   const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
-  const [currentGame, setCurrentGame] = useState();
+  const [currentGame, setCurrentGame] = useState({ name: 'loading...' });
 
   useEffect(() => {
     getGames()
@@ -153,7 +153,7 @@ export default function Layout() {
             : <div />}
         </div>
         <div className={styles.content}>
-          <ContentArea currentGame="wada" />
+          <ContentArea currentGame={currentGame} />
         </div>
       </div>
     </div>

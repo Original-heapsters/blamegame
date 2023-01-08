@@ -11,7 +11,7 @@ export default function Modal({
       <div className={styles.overlay} />
       <div className={styles.modal}>
         <div className={styles.modal_header}>
-          <h3>{currentGame}</h3>
+          <h3>{currentGame.name}</h3>
           <button type="button" className={styles.button} onClick={onClose}>X</button>
         </div>
         <div className={styles.modal_content}>{children}</div>

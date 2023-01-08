@@ -1,24 +1,34 @@
-import React, { useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import React, { useEffect, useState } from 'react';
+import RuleDisplay from './RuleDisplay';
+import Accordion from '../modal/Accordion';
+import getRuleset from '../../Api/Game/getRuleset';
 
-function RulesetModal({
-  showRules, closeModal, gameName,
+function Ruleset({
+  game,
 }) {
-  useEffect(() => {
+  const [loadingRules, setLoadingRules] = useState(true);
+  const [rules, setRules] = useState();
 
-  }, []);
+  useEffect(() => {
+    getRuleset(game.name)
+      .then((gameRules) => {
+        setRules(gameRules);
+        setLoadingRules(false);
+      });
+  }, [game.name]);
+
   return (
-    <Modal show={showRules} onHide={closeModal} dialogClassName="modal-90w">
-      <Modal.Header closeButton>
-        <Modal.Title>{gameName}</Modal.Title>
-      </Modal.Header>
-      test
-      <Modal.Footer>
-        <Button variant="primary" onClick={closeModal}>OK</Button>
-      </Modal.Footer>
-    </Modal>
+    <div>
+      { loadingRules
+        ? <h3>Loading...</h3>
+        : Object.keys(rules).map((rule) => {
+          const ruleConsequence = rules[rule];
+          return (
+            <Accordion title={rule} content={<RuleDisplay ruleConsequence={ruleConsequence} />} />
+          );
+        })}
+    </div>
   );
 }
 
-export default RulesetModal;
+export default Ruleset;
