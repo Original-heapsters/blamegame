@@ -15,11 +15,11 @@ export default function ContentArea({ currentGame }) {
   const [isOpen, setisOpen] = useState(false);
 
   useEffect(() => {
-    getChatHistory('blamegame_api')
+    getChatHistory(currentGame.name)
       .then((log) => {
         setMessageLog(log);
       });
-  }, []);
+  }, [currentGame.name]);
 
   function newMessageHandler(data) {
     setMessageLog((prev) => [...prev, data]);
