@@ -59,10 +59,6 @@ export default function Layout() {
   }, []);
 
   useEffect(() => {
-    seedBackend();
-  }, []);
-
-  useEffect(() => {
     // Simulate a login
     const defaultUser = {
       username: 'testUser',
@@ -71,6 +67,11 @@ export default function Layout() {
     };
     setLoggedInUser(defaultUser);
   }, []);
+
+  const seedHandler = () => {
+    seedBackend();
+    window.reload(0);
+  };
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);
@@ -94,6 +95,7 @@ export default function Layout() {
         <div className={styles.logo}>
           <h1>BLAME GAME</h1>
         </div>
+        <button type="button" onClick={seedHandler}>Re-Seed redis</button>
         <div className={styles.credentials}>
           <button type="button" onClick={modalHandler}>sign in</button>
           <button type="button" onClick={modalHandler}>sign up</button>
