@@ -3,7 +3,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-// import io from 'socket.io-client';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
 import Hook from './Hook';
