@@ -8,13 +8,16 @@ export default function GameListItem({
   switchRooms,
 }) {
   const buttonStyle = isCurrentGame ? 'light' : 'outline-light';
-  
+  const clickHandler = () => {
+    switchRooms(game);
+  };
+
   return (
     <li>
       <Button
         className={styles.gameListItem}
         variant={buttonStyle}
-        onClick={()=>switchRooms(game)}
+        onClick={clickHandler}
       >
         {game.name}
       </Button>

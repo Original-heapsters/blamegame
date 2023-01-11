@@ -10,7 +10,9 @@ import getGames from '../Api/Game/getGames';
 import seedBackend from '../Api/Debug/seed';
 import * as api from '../Api/Authentication/signIn/index';
 
-const socket = io.connect('https://blame-game-api.onrender.com');
+const { REACT_APP_API_SERVER } = process.env;
+
+const socket = io.connect(REACT_APP_API_SERVER);
 
 export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,12 +28,11 @@ export default function Layout() {
   const switchRooms = (game) => {
     const prevGame = currentGame.name;
     if (currentGame.id === game.id) {
-      return null;
+      return;
     }
-    socket.emit('leave',{game:prevGame, user:username});
+    socket.emit('leave', { game: prevGame, user: username });
     setCurrentGame(game);
-    socket.emit('join',{game: game.name, user:username});
-    
+    socket.emit('join', { game: game.name, user: username });
   };
 
   useEffect(() => {
@@ -171,7 +172,7 @@ export default function Layout() {
             : <div />}
         </div>
         <div className={styles.content}>
-          <ContentArea currentGame={currentGame} socket={socket}/>
+          <ContentArea currentGame={currentGame} username={username} socket={socket} />
         </div>
       </div>
     </div>

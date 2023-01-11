@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+} from 'react';
 // import io from 'socket.io-client';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
@@ -8,31 +12,36 @@ import Reply from './Reply';
 import Modal from '../modal/modal';
 import Ruleset from '../Modals/Ruleset';
 
-// const socket = io.connect('https://blame-game-api.onrender.com');
-
-export default function ContentArea({ currentGame, socket }) {
+export default function ContentArea({ currentGame, username, socket }) {
   const [messageLog, setMessageLog] = useState([]);
   const [isOpen, setisOpen] = useState(false);
 
+  const messagesEndRef = useRef();
+
   useEffect(() => {
-    console.log(currentGame)
     getChatHistory(currentGame.name)
       .then((log) => {
-        setMessageLog(log);
+        const sorted = log.sort((a, b) => new Date(a.date) - new Date(b.date));
+        setMessageLog(sorted);
       });
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [currentGame.name]);
 
-  function newMessageHandler(data) {
-    console.log(data);
-    setMessageLog((prev) => [...prev, data]);
+  const newMessageHandler = (data) => {
+    setMessageLog((prev) => {
+      const unsorted = [...prev, data];
+      const sorted = unsorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+      return sorted;
+    });
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
-  }
   useEffect(() => {
     socket.on(currentGame.name, newMessageHandler);
     return () => {
       socket.off(currentGame.name, newMessageHandler);
     };
-  }, [socket]);
+  }, [socket, currentGame.name]);
 
   const closeModal = () => {
     setisOpen(false);
@@ -67,6 +76,7 @@ export default function ContentArea({ currentGame, socket }) {
               />
             )))
         }
+        <div className={styles.messagesEndRef} ref={messagesEndRef} />
       </div>
       <div className={styles.replyContainer}>
         <div className={styles.replyCont}>
@@ -74,7 +84,7 @@ export default function ContentArea({ currentGame, socket }) {
         </div>
         <button type="button" className={styles.btn}>submit</button>
       </div>
-      <Reply socket={socket} />
+      <Reply currentGame={currentGame} username={username} socket={socket} />
     </div>
   );
 }
