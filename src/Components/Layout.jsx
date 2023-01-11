@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import styles from './layout.module.css';
 import OnlineCard from './User/OnlineCard';
 import ContentArea from './Chat/ContentArea';
@@ -9,15 +10,30 @@ import getGames from '../Api/Game/getGames';
 import seedBackend from '../Api/Debug/seed';
 import * as api from '../Api/Authentication/signIn/index';
 
+const { REACT_APP_API_SERVER } = process.env;
+
+const socket = io.connect(REACT_APP_API_SERVER);
+
 export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [username, setUsername] = useState('PaPaBl3SsS');
+  const [username, setUsername] = useState('testUser');
   const [password, setPassword] = useState('PaPaBl3SsS');
   const [email, setEmail] = useState('PaPaBl3SsS');
   const [loggedInUser, setLoggedInUser] = useState();
   const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
+
   const [currentGame, setCurrentGame] = useState({ name: 'loading...' });
+
+  const switchRooms = (game) => {
+    const prevGame = currentGame.name;
+    if (currentGame.id === game.id) {
+      return;
+    }
+    socket.emit('leave', { game: prevGame, user: username });
+    setCurrentGame(game);
+    socket.emit('join', { game: game.name, user: username });
+  };
 
   useEffect(() => {
     getGames()
@@ -122,6 +138,7 @@ export default function Layout() {
                       key={game.id}
                       game={game}
                       isCurrentGame={game.name === currentGame.name}
+                      switchRooms={switchRooms}
                     />
                   ))
                 }
@@ -155,7 +172,7 @@ export default function Layout() {
             : <div />}
         </div>
         <div className={styles.content}>
-          <ContentArea currentGame={currentGame} />
+          <ContentArea currentGame={currentGame} username={username} socket={socket} />
         </div>
       </div>
     </div>
