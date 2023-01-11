@@ -29,9 +29,11 @@ export default function ContentArea({ currentGame, username, socket }) {
   }, [currentGame.name]);
 
   const newMessageHandler = (data) => {
-    const audioUrl = `${REACT_APP_API_SERVER}${data.publicAudio}`;
-    const notification = new Audio(audioUrl);
-    notification.play();
+    if (data.type === 'hook') {
+      const audioUrl = `${REACT_APP_API_SERVER}${data.publicAudio}`;
+      const notification = new Audio(audioUrl);
+      notification.play();
+    }
     setMessageLog((prev) => {
       const unsorted = [...prev, data];
       const sorted = unsorted.sort((a, b) => new Date(a.date) - new Date(b.date));
