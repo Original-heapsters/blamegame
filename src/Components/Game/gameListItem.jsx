@@ -7,12 +7,13 @@ import getRuleset from '../../Api/Game/getRuleset';
 export default function GameListItem({
   game,
   isCurrentGame = false,
+  switchRooms,
 }) {
   const [showRules, setShowRules] = useState(false);
 
   const ruleSetClickHandler = async () => {
     setShowRules(!showRules);
-    await getRuleset(game.name);
+    await console.log(getRuleset(game.name));
   };
 
   const buttonStyle = isCurrentGame ? 'light' : 'outline-light';
@@ -22,7 +23,7 @@ export default function GameListItem({
       <Button
         className={styles.gameListItem}
         variant={buttonStyle}
-        onClick={ruleSetClickHandler}
+        onClick={() => { switchRooms(game); }}
       >
         {game.name}
       </Button>

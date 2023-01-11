@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import styles from './layout.module.css';
 import OnlineCard from './User/OnlineCard';
 import ContentArea from './Chat/ContentArea';
@@ -8,6 +9,8 @@ import Header from './Modals/Header';
 import getGames from '../Api/Game/getGames';
 import seedBackend from '../Api/Debug/seed';
 
+const socket = io.connect('https://blame-game-api.onrender.com');
+
 export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
   const [username, setUsername] = useState('PaPaBl3SsS');
@@ -16,7 +19,18 @@ export default function Layout() {
   const [loggedInUser, setLoggedInUser] = useState();
   const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
-  const [currentGame, setCurrentGame] = useState();
+  const [currentGame, setCurrentGame] = useState('general');
+
+  const switchRooms = (game) => {
+    let prevGame = currentGame.name;
+    if (currentGame.id === game.id) {
+      return null;
+    } else {
+      socket.emit({user:'papbliss',prevGame,next:game})
+     setCurrentGame(game);
+     console.log(`prev: ${prevGame} next:${game.name}`)
+    } 
+  };
 
   useEffect(() => {
     getGames()
@@ -122,6 +136,7 @@ export default function Layout() {
                       key={game.id}
                       game={game}
                       isCurrentGame={game.name === currentGame.name}
+                      switchRooms={switchRooms}
                     />
                   ))
                 }
@@ -155,7 +170,8 @@ export default function Layout() {
             : <div />}
         </div>
         <div className={styles.content}>
-          <ContentArea currentGame="wada" />
+        {console.log(currentGame)}
+          <ContentArea currentGame={currentGame.name || 'general'} socket={socket} />
         </div>
       </div>
     </div>

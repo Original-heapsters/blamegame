@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
 import Hook from './Hook';
@@ -8,18 +8,19 @@ import Reply from './Reply';
 import Modal from '../modal/modal';
 import Accordion from '../modal/Accordion';
 
-const socket = io.connect('https://blame-game-api.onrender.com');
+//const socket = io.connect('https://blame-game-api.onrender.com');
 
-export default function ContentArea({ currentGame }) {
+export default function ContentArea({ currentGame, socket }) {
   const [messageLog, setMessageLog] = useState([]);
   const [isOpen, setisOpen] = useState(false);
 
   useEffect(() => {
-    getChatHistory('blamegame_api')
+    console.log('hello from useEffet on getchat')
+    getChatHistory(currentGame)
       .then((log) => {
         setMessageLog(log);
       });
-  }, []);
+  }, [currentGame]);
 
   function newMessageHandler(data) {
     setMessageLog((prev) => [...prev, data]);
