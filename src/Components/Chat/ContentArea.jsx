@@ -11,6 +11,8 @@ import Reply from './Reply';
 import Modal from '../modal/modal';
 import Ruleset from '../Modals/Ruleset';
 
+const { REACT_APP_API_SERVER } = process.env;
+
 export default function ContentArea({ currentGame, username, socket }) {
   const [messageLog, setMessageLog] = useState([]);
   const [isOpen, setisOpen] = useState(false);
@@ -27,6 +29,11 @@ export default function ContentArea({ currentGame, username, socket }) {
   }, [currentGame.name]);
 
   const newMessageHandler = (data) => {
+    if (data.type === 'hook') {
+      const audioUrl = `${REACT_APP_API_SERVER}${data.publicAudio}`;
+      const notification = new Audio(audioUrl);
+      notification.play();
+    }
     setMessageLog((prev) => {
       const unsorted = [...prev, data];
       const sorted = unsorted.sort((a, b) => new Date(a.date) - new Date(b.date));
