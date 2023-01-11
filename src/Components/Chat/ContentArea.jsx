@@ -6,7 +6,7 @@ import Hook from './Hook';
 import getChatHistory from '../../Api/Chat/getChatHistory';
 import Reply from './Reply';
 import Modal from '../modal/modal';
-import Accordion from '../modal/Accordion';
+import Ruleset from '../Modals/Ruleset';
 
 //const socket = io.connect('https://blame-game-api.onrender.com');
 
@@ -15,12 +15,11 @@ export default function ContentArea({ currentGame, socket }) {
   const [isOpen, setisOpen] = useState(false);
 
   useEffect(() => {
-    console.log('hello from useEffet on getchat')
-    getChatHistory(currentGame)
+    getChatHistory(currentGame.name)
       .then((log) => {
         setMessageLog(log);
       });
-  }, [currentGame]);
+  }, [currentGame.name]);
 
   function newMessageHandler(data) {
     setMessageLog((prev) => [...prev, data]);
@@ -31,10 +30,17 @@ export default function ContentArea({ currentGame, socket }) {
       socket.off('general', newMessageHandler);
     };
   }, []);
+
+  const closeModal = () => {
+    setisOpen(false);
+  };
+
   return (
     <div className={styles.contentArea}>
-      <button type="button" className={styles.button} onClick={() => { setisOpen(true); }}>{currentGame}</button>
-      <Modal open={isOpen} onClose={() => { setisOpen(false); }} currentGame={currentGame}><Accordion title="section-1" content="hello" /></Modal>
+      <button type="button" className={styles.button} onClick={() => { setisOpen(true); }}>{currentGame.name}</button>
+      <Modal open={isOpen} onClose={closeModal} currentGame={currentGame}>
+        <Ruleset game={currentGame} />
+      </Modal>
       <div className={styles.comments}>
         {
           messageLog.map((message) => (message.type === 'hook'
@@ -58,6 +64,12 @@ export default function ContentArea({ currentGame, socket }) {
               />
             )))
         }
+      </div>
+      <div className={styles.replyContainer}>
+        <div className={styles.replyCont}>
+          <input type="text" name="reply" className={styles.reply} placeholder="Reply..." />
+        </div>
+        <button type="button" className={styles.btn}>submit</button>
       </div>
       <Reply socket={socket} />
     </div>

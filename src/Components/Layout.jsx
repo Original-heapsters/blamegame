@@ -8,6 +8,7 @@ import AuthenticationModal from './Modals/AuthenticationModal';
 import Header from './Modals/Header';
 import getGames from '../Api/Game/getGames';
 import seedBackend from '../Api/Debug/seed';
+import * as api from '../Api/Authentication/signIn/index';
 
 const socket = io.connect('https://blame-game-api.onrender.com');
 
@@ -19,7 +20,8 @@ export default function Layout() {
   const [loggedInUser, setLoggedInUser] = useState();
   const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
-  const [currentGame, setCurrentGame] = useState('general');
+
+const [currentGame, setCurrentGame] = useState({ name: 'loading...' });
 
   const switchRooms = (game) => {
     let prevGame = currentGame.name;
@@ -31,6 +33,7 @@ export default function Layout() {
      console.log(`prev: ${prevGame} next:${game.name}`)
     } 
   };
+
 
   useEffect(() => {
     getGames()
@@ -72,10 +75,6 @@ export default function Layout() {
   }, []);
 
   useEffect(() => {
-    seedBackend();
-  }, []);
-
-  useEffect(() => {
     // Simulate a login
     const defaultUser = {
       username: 'testUser',
@@ -85,6 +84,11 @@ export default function Layout() {
     setLoggedInUser(defaultUser);
   }, []);
 
+  const seedHandler = () => {
+    seedBackend();
+    window.reload(0);
+  };
+
   const modalHandler = () => {
     setModalOpen(!modalOpen);
   };
@@ -93,24 +97,21 @@ export default function Layout() {
     setModalOpen(!modalOpen);
   };
 
-  const usernameHandler = () => {
-    setUsername(username);
+  const loginHandler = async () => {
+    const creds = {
+      username,
+      email,
+      password,
+    };
+    await api.signIn(creds);
   };
-
-  const passwordHandler = () => {
-    setPassword(password);
-  };
-
-  const emailHandler = () => {
-    setEmail(email);
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.logo}>
           <h1>BLAME GAME</h1>
         </div>
+        <button type="button" onClick={seedHandler}>Re-Seed redis</button>
         <div className={styles.credentials}>
           <button type="button" onClick={modalHandler}>sign in</button>
           <button type="button" onClick={modalHandler}>sign up</button>
@@ -118,9 +119,10 @@ export default function Layout() {
           <AuthenticationModal
             closeModal={modalHideHandler}
             loggingIn={modalOpen}
-            setUsername={usernameHandler}
-            setPassword={passwordHandler}
-            setEmail={emailHandler}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            setEmail={setEmail}
+            login={loginHandler}
           />
         </div>
       </div>
@@ -170,8 +172,12 @@ export default function Layout() {
             : <div />}
         </div>
         <div className={styles.content}>
+<<<<<<< HEAD
         {console.log(currentGame)}
           <ContentArea currentGame={currentGame.name || 'general'} socket={socket} />
+=======
+          <ContentArea currentGame={currentGame} />
+>>>>>>> 76ed6a261282cc70e767e20a631b9a6ed773c6f7
         </div>
       </div>
     </div>
