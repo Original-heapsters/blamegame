@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-//import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import styles from './contentArea.module.css';
 import Comment from './Comment';
 import Hook from './Hook';
@@ -8,13 +8,14 @@ import Reply from './Reply';
 import Modal from '../modal/modal';
 import Ruleset from '../Modals/Ruleset';
 
-//const socket = io.connect('https://blame-game-api.onrender.com');
+// const socket = io.connect('https://blame-game-api.onrender.com');
 
 export default function ContentArea({ currentGame, socket }) {
   const [messageLog, setMessageLog] = useState([]);
   const [isOpen, setisOpen] = useState(false);
 
   useEffect(() => {
+    console.log(currentGame)
     getChatHistory(currentGame.name)
       .then((log) => {
         setMessageLog(log);
@@ -22,14 +23,16 @@ export default function ContentArea({ currentGame, socket }) {
   }, [currentGame.name]);
 
   function newMessageHandler(data) {
+    console.log(data);
     setMessageLog((prev) => [...prev, data]);
+
   }
   useEffect(() => {
-    socket.on('general', newMessageHandler);
+    socket.on(currentGame.name, newMessageHandler);
     return () => {
-      socket.off('general', newMessageHandler);
+      socket.off(currentGame.name, newMessageHandler);
     };
-  }, []);
+  }, [socket]);
 
   const closeModal = () => {
     setisOpen(false);

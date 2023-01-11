@@ -14,26 +14,25 @@ const socket = io.connect('https://blame-game-api.onrender.com');
 
 export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [username, setUsername] = useState('PaPaBl3SsS');
+  const [username, setUsername] = useState('testUser');
   const [password, setPassword] = useState('PaPaBl3SsS');
   const [email, setEmail] = useState('PaPaBl3SsS');
   const [loggedInUser, setLoggedInUser] = useState();
   const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
 
-const [currentGame, setCurrentGame] = useState({ name: 'loading...' });
+  const [currentGame, setCurrentGame] = useState({ name: 'loading...' });
 
   const switchRooms = (game) => {
-    let prevGame = currentGame.name;
+    const prevGame = currentGame.name;
     if (currentGame.id === game.id) {
       return null;
-    } else {
-      socket.emit({user:'papbliss',prevGame,next:game})
-     setCurrentGame(game);
-     console.log(`prev: ${prevGame} next:${game.name}`)
-    } 
+    }
+    socket.emit('leave',{game:prevGame, user:username});
+    setCurrentGame(game);
+    socket.emit('join',{game: game.name, user:username});
+    
   };
-
 
   useEffect(() => {
     getGames()
@@ -172,12 +171,7 @@ const [currentGame, setCurrentGame] = useState({ name: 'loading...' });
             : <div />}
         </div>
         <div className={styles.content}>
-<<<<<<< HEAD
-        {console.log(currentGame)}
-          <ContentArea currentGame={currentGame.name || 'general'} socket={socket} />
-=======
-          <ContentArea currentGame={currentGame} />
->>>>>>> 76ed6a261282cc70e767e20a631b9a6ed773c6f7
+          <ContentArea currentGame={currentGame} socket={socket}/>
         </div>
       </div>
     </div>
