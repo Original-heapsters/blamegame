@@ -113,10 +113,10 @@ export default function Layout() {
         <div className={styles.logo}>
           <h1>BLAME GAME</h1>
         </div>
-        <button type="button" onClick={seedHandler}>Re-Seed redis</button>
         <div className={styles.credentials}>
-          <button type="button" onClick={modalHandler}>sign in</button>
-          <button type="button" onClick={modalHandler}>sign up</button>
+          <button type="button" onClick={seedHandler}>Re-Seed</button>
+          <button type="button" onClick={modalHandler}>Sign in</button>
+          <button type="button" onClick={modalHandler}>Sign up</button>
           <Header />
           <AuthenticationModal
             closeModal={modalHideHandler}
@@ -162,17 +162,20 @@ export default function Layout() {
               }
             </div>
           </div>
-          { loggedInUser
-            ? (
-              <OnlineCard
-                name={loggedInUser.username}
-                img={loggedInUser.profileUrl}
-                isOnline
-                isCurrentUser
-              />
-            )
-            : <div />}
+          <div className={styles.loggedInUser}>
+            { loggedInUser
+              ? (
+                <OnlineCard
+                  name={loggedInUser.username}
+                  img={loggedInUser.profileUrl}
+                  isOnline
+                  isCurrentUser
+                />
+              )
+              : <div />}
+          </div>
         </div>
+
         <div className={styles.content}>
           <ContentArea currentGame={currentGame} username={username} socket={socket} />
         </div>
