@@ -8,13 +8,14 @@ import AuthenticationModal from './Modals/AuthenticationModal';
 import Header from './Modals/Header';
 import getGames from '../Api/Game/getGames';
 import seedBackend from '../Api/Debug/seed';
-import * as api from '../Api/Authentication/signIn/index';
+import * as api from '../Api/Authentication/index';
 
 const { REACT_APP_API_SERVER } = process.env;
 
 const socket = io.connect(REACT_APP_API_SERVER);
 
 export default function Layout() {
+  const [signingIn, setSigningIn] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [username, setUsername] = useState('testUser');
   const [password, setPassword] = useState('PaPaBl3SsS');
@@ -91,7 +92,8 @@ export default function Layout() {
     window.reload(0);
   };
 
-  const modalHandler = () => {
+  const modalHandler = (userSigningIn = false) => {
+    setSigningIn(userSigningIn);
     setModalOpen(!modalOpen);
   };
 
@@ -105,7 +107,11 @@ export default function Layout() {
       email,
       password,
     };
-    await api.signIn(creds);
+    if (signingIn) {
+      await api.signIn(creds);
+    } else {
+      await api.signUp(creds);
+    }
   };
   return (
     <div className={styles.container}>
@@ -115,8 +121,8 @@ export default function Layout() {
         </div>
         <div className={styles.credentials}>
           <button type="button" onClick={seedHandler}>Re-Seed</button>
-          <button type="button" onClick={modalHandler}>Sign in</button>
-          <button type="button" onClick={modalHandler}>Sign up</button>
+          <button type="button" onClick={() => modalHandler(true)}>Sign in</button>
+          <button type="button" onClick={() => modalHandler(false)}>Sign up</button>
           <Header />
           <AuthenticationModal
             closeModal={modalHideHandler}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AuthenticationModal from './AuthenticationModal';
-import * as api from '../../Api/Authentication/signIn/index';
+import * as api from '../../Api/Authentication/index';
 
 function Header({
   triggerLogin, username, setUsername, password, setPassword, email, setEmail,
