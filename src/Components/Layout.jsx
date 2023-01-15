@@ -38,8 +38,10 @@ export default function Layout() {
   useEffect(() => {
     getGames()
       .then((games) => {
-        setGameList(games);
-        setCurrentGame(games[0]);
+        if (games && games.length > 0) {
+          setGameList(games);
+          setCurrentGame(games[0]);
+        }
       });
   }, []);
 

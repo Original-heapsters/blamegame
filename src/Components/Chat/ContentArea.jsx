@@ -20,12 +20,14 @@ export default function ContentArea({ currentGame, username, socket }) {
   const messagesEndRef = useRef();
 
   useEffect(() => {
-    getChatHistory(currentGame.name)
-      .then((log) => {
-        const sorted = log.sort((a, b) => new Date(a.date) - new Date(b.date));
-        setMessageLog(sorted);
-      });
-    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (currentGame.name) {
+      getChatHistory(currentGame.name)
+        .then((log) => {
+          const sorted = log.sort((a, b) => new Date(a.date) - new Date(b.date));
+          setMessageLog(sorted);
+        });
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [currentGame.name]);
 
   const newMessageHandler = (data) => {
