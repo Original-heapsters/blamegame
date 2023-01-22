@@ -7,6 +7,7 @@ async function signIn(postInfo) {
     url: `${REACT_APP_API_SERVER}/signIn`,
     data: postInfo,
     method: 'POST',
+    withCredentials: true,
   });
   return data;
 }

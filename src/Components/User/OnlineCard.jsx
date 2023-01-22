@@ -18,7 +18,7 @@ export default function OnlineCard({
           {' '}
         </div>
       </div>
-      <h7>{name}</h7>
+      <h6>{name}</h6>
       <span className={styles.span}>{ isCurrentUser ? '(you)' : '' }</span>
     </div>
   );

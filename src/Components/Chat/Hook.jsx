@@ -25,10 +25,10 @@ export default function Hook({
         alt="test"
       />
       <div className={styles.nameReplyContainer}>
-        <h7 className={styles.h7}>
+        <h6 className={styles.h7}>
           { player.username }
           <span className={styles.span}>{ readableDate }</span>
-        </h7>
+        </h6>
         <div className={styles.rply}>
           {hookContent}
         </div>
