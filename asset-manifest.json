@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/blamegame/static/css/main.021b3da6.css",
-    "main.js": "/blamegame/static/js/main.aca9f94f.js",
+    "main.js": "/blamegame/static/js/main.8ae9e599.js",
     "static/js/496.fdb07c1b.chunk.js": "/blamegame/static/js/496.fdb07c1b.chunk.js",
     "index.html": "/blamegame/index.html",
     "main.021b3da6.css.map": "/blamegame/static/css/main.021b3da6.css.map",
-    "main.aca9f94f.js.map": "/blamegame/static/js/main.aca9f94f.js.map",
+    "main.8ae9e599.js.map": "/blamegame/static/js/main.8ae9e599.js.map",
     "496.fdb07c1b.chunk.js.map": "/blamegame/static/js/496.fdb07c1b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.021b3da6.css",
-    "static/js/main.aca9f94f.js"
+    "static/js/main.8ae9e599.js"
   ]
 }
