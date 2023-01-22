@@ -26,10 +26,10 @@ function LoginForm({ setUsername, setPassword, setEmail }) {
           <FloatingLabel className="me-auto" controlId="usernameInput" label="Username">
             <Form.Control type="username" placeholder="username" onChange={handleUsernameChange} />
           </FloatingLabel>
-          <FloatingLabel className="me-auto" controlId="usernameInput" label="Password">
+          <FloatingLabel className="me-auto" controlId="passwordInput" label="Password">
             <Form.Control type="password" placeholder="password" onChange={handlePasswordChange} />
           </FloatingLabel>
-          <FloatingLabel className="me-auto" controlId="usernameInput" label="Email">
+          <FloatingLabel className="me-auto" controlId="emailInput" label="Email">
             <Form.Control type="email" placeholder="name@example.com" onChange={handleEmailChange} />
           </FloatingLabel>
         </Stack>

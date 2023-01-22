@@ -45,7 +45,9 @@ export default function ContentArea({ currentGame, username, socket }) {
   };
 
   useEffect(() => {
-    socket.on(currentGame.name, newMessageHandler);
+    if (currentGame.name) {
+      socket.on(currentGame.name, newMessageHandler);
+    }
     return () => {
       socket.off(currentGame.name, newMessageHandler);
     };

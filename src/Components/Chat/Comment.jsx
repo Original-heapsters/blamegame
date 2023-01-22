@@ -19,10 +19,10 @@ export default function Comment({
         alt="test"
       />
       <div className={styles.nameReplyContainer}>
-        <h7 className={styles.h7}>
+        <h6 className={styles.h7}>
           { player }
           <span className={styles.span}>{ readableDate }</span>
-        </h7>
+        </h6>
         <div className={styles.rply}>
           {message}
         </div>
