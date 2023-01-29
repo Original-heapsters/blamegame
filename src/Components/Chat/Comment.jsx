@@ -8,7 +8,7 @@ export default function Comment({
   date,
   message,
 }) {
-  const userImg = null || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
+  const userImg = player.profileUrl || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
   const readableDate = new Date(date).toLocaleString('en-US');
 
   return (

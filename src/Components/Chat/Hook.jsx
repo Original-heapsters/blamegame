@@ -2,7 +2,7 @@ import React from 'react';
 import Player from '../Util/Player';
 import styles from './hook.module.css';
 
-const { REACT_APP_API_SERVER } = process.env;
+const { REACT_APP_API_SERVER, REACT_APP_API_SERVER_LOCAL, REACT_APP_TEST_LOCAL } = process.env;
 
 export default function Hook({
   id,
@@ -12,9 +12,10 @@ export default function Hook({
   audio,
   date,
 }) {
-  const userImg = null || 'https://funny-photo.s3.amazonaws.com/templates/1300/preview220.jpg';
+  const userImg = player.profileUrl || 'https://funny-photo.s3.amazonaws.com/templates/1300/preview220.jpg';
   const readableDate = new Date(date).toLocaleString('en-US');
-  const audioUrl = `${REACT_APP_API_SERVER}${audio}`;
+  const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
+  const audioUrl = `${apiServer}${audio}`;
   const hookContent = `${hook}:${consequence.rule} -> ${consequence.cause}`;
 
   return (
