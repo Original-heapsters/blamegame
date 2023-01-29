@@ -4,12 +4,20 @@ import Button from 'react-bootstrap/Button';
 import LoginForm from './LoginForm';
 
 function AuthenticationModal({
-  loggingIn, closeModal, login, setUsername, setPassword, setEmail, setSelectedFile, selectedFile,
+  signingIn,
+  showModal,
+  closeModal,
+  login,
+  setUsername,
+  setPassword,
+  setEmail,
+  setSelectedFile,
+  selectedFile,
 }) {
   return (
-    <Modal show={loggingIn} onHide={closeModal} dialogClassName="modal-90w">
+    <Modal show={showModal} onHide={closeModal} dialogClassName="modal-90w">
       <Modal.Header closeButton>
-        <Modal.Title>Login</Modal.Title>
+        <Modal.Title>{ `Sign ${signingIn ? 'in' : 'up'}` }</Modal.Title>
       </Modal.Header>
       <LoginForm
         setSelectedFile={setSelectedFile}

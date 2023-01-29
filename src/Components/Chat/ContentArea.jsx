@@ -11,16 +11,17 @@ import Reply from './Reply';
 import Modal from '../modal/modal';
 import Ruleset from '../Modals/Ruleset';
 
-const { REACT_APP_API_SERVER } = process.env;
+const { REACT_APP_API_SERVER, REACT_APP_API_SERVER_LOCAL, REACT_APP_TEST_LOCAL } = process.env;
 
 export default function ContentArea({ currentGame, username, socket }) {
+  // ///////////////////////////////// STATE ///////////////////////////////////
   const [messageLog, setMessageLog] = useState([]);
-  const [isOpen, setisOpen] = useState(false);
-
+  const [modalOpen, setModalOpen] = useState(false);
   const messagesEndRef = useRef();
 
+  // ///////////////////////////////// EFFECTS ///////////////////////////////////
   useEffect(() => {
-    if (currentGame.name) {
+    if (currentGame) {
       getChatHistory(currentGame.name)
         .then((log) => {
           const sorted = log.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -28,39 +29,46 @@ export default function ContentArea({ currentGame, username, socket }) {
         });
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [currentGame.name]);
-
-  const newMessageHandler = (data) => {
-    if (data.type === 'hook') {
-      const audioUrl = `${REACT_APP_API_SERVER}${data.publicAudio}`;
-      const notification = new Audio(audioUrl);
-      notification.play();
-    }
-    setMessageLog((prev) => {
-      const unsorted = [...prev, data];
-      const sorted = unsorted.sort((a, b) => new Date(a.date) - new Date(b.date));
-      return sorted;
-    });
-    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, [currentGame]);
 
   useEffect(() => {
-    if (currentGame.name) {
-      socket.on(currentGame.name, newMessageHandler);
-    }
-    return () => {
-      socket.off(currentGame.name, newMessageHandler);
+    const newMessageHandler = (data) => {
+      if (data.type === 'hook') {
+        const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
+        const audioUrl = `${apiServer}${data.publicAudio}`;
+        const notification = new Audio(audioUrl);
+        notification.play();
+      }
+      setMessageLog((prev) => {
+        const unsorted = [...prev, data];
+        const sorted = unsorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+        return sorted;
+      });
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     };
-  }, [socket, currentGame.name]);
 
-  const closeModal = () => {
-    setisOpen(false);
+    if (currentGame) {
+      socket.on(currentGame.name, newMessageHandler);
+      return () => {
+        socket.off(currentGame.name, newMessageHandler);
+      };
+    }
+    return () => {};
+  }, [socket, currentGame]);
+
+  // ///////////////////////////////// HANDLERS ///////////////////////////////////
+  const modalOpenHandler = () => {
+    setModalOpen(!modalOpen);
   };
 
   return (
     <div className={styles.contentArea}>
-      <button type="button" className={styles.button} onClick={() => { setisOpen(true); }}>{currentGame.name}</button>
-      <Modal open={isOpen} onClose={closeModal} currentGame={currentGame}>
+      {
+        currentGame
+          ? <button type="button" className={styles.button} onClick={modalOpenHandler}>{currentGame.name}</button>
+          : <button type="button" className={styles.button}>General</button>
+      }
+      <Modal open={modalOpen} onClose={modalOpenHandler} currentGame={currentGame}>
         <Ruleset game={currentGame} />
       </Modal>
       <div className={styles.comments}>

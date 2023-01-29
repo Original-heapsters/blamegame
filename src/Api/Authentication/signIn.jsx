@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-const { REACT_APP_API_SERVER } = process.env;
+const { REACT_APP_API_SERVER, REACT_APP_API_SERVER_LOCAL, REACT_APP_TEST_LOCAL } = process.env;
 
 async function signIn(postInfo) {
+  const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
   const { data } = await axios({
-    url: `${REACT_APP_API_SERVER}/signIn`,
+    url: `${apiServer}/signIn`,
     data: postInfo,
     method: 'POST',
     withCredentials: true,

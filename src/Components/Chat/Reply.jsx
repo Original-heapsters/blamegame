@@ -1,33 +1,40 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './reply.module.css';
 
 export default function Reply({ currentGame, username, socket }) {
+  // ///////////////////////////////// STATE ///////////////////////////////////
   const [msg, setMsg] = useState('');
 
+  // ///////////////////////////////// EFFECTS ///////////////////////////////////
   const sendMessage = useCallback(() => {
-    socket.emit('chatMessage', { game: currentGame.name, user: username, msg });
-  }, [msg, currentGame.name, username, socket]);
+    if (currentGame && msg !== '') {
+      socket.emit('chatMessage', { game: currentGame.name, user: username, msg });
+    }
+  }, [msg, currentGame, username, socket]);
 
-  useEffect(() => {
-    const listener = (event) => {
-      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        event.preventDefault();
-        sendMessage();
-        setMsg('');
-      }
-    };
-    document.addEventListener('keydown', listener);
-    return () => {
-      document.removeEventListener('keydown', listener);
-    };
-  }, [sendMessage]);
+  // ///////////////////////////////// HANDLERS ///////////////////////////////////
+  const inputChangeHandler = (e) => {
+    setMsg(e.target.value);
+  };
+
+  const enterListener = (e) => {
+    if ((e.key === 'Enter' || e.key === 'NumpadEnter') && msg !== '') {
+      sendMessage();
+      setMsg('');
+    }
+  };
+
+  const sendMessageHandler = () => {
+    sendMessage();
+    setMsg('');
+  };
 
   return (
     <div className={styles.replyContainer}>
       <div className={styles.replyCont}>
-        <input type="text" name="reply" className={styles.reply} placeholder="reply..." onChange={(e) => { setMsg(e.target.value); }} value={msg} />
+        <input type="text" name="reply" className={styles.reply} placeholder="reply..." onChange={inputChangeHandler} onKeyDown={enterListener} value={msg} />
       </div>
-      <button type="button" className={styles.btn} onClick={() => { sendMessage(); setMsg(''); }}>submit</button>
+      <button type="button" className={styles.btn} onClick={sendMessageHandler}>submit</button>
     </div>
   );
 }
