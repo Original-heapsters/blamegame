@@ -148,19 +148,17 @@ export default function Layout() {
                   />
                 ))
               }
+              { loggedInUser
+                ? (
+                  <OnlineCard
+                    name={loggedInUser.username}
+                    img={loggedInUser.profileUrl}
+                    isOnline
+                    isCurrentUser
+                  />
+                )
+                : <div />}
             </div>
-          </div>
-          <div className={styles.loggedInUser}>
-            { loggedInUser
-              ? (
-                <OnlineCard
-                  name={loggedInUser.username}
-                  img={loggedInUser.profileUrl}
-                  isOnline
-                  isCurrentUser
-                />
-              )
-              : <div />}
           </div>
         </div>
         <div className={styles.content}>

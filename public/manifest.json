@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Blame Game",
+  "name": "Blame game, github hooks chat",
   "icons": [
     {
       "src": "favicon.ico",

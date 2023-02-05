@@ -5,6 +5,7 @@ import styles from './hook.module.css';
 const { REACT_APP_API_SERVER, REACT_APP_API_SERVER_LOCAL, REACT_APP_TEST_LOCAL } = process.env;
 
 export default function Hook({
+  index,
   id,
   player,
   consequence,
@@ -19,7 +20,10 @@ export default function Hook({
   const hookContent = `${hook}:${consequence.rule} -> ${consequence.cause}`;
 
   return (
-    <div key={id} className={styles.hookContainer}>
+    <div
+      key={id}
+      className={index % 2 === 0 ? styles.hookContainer : styles.hookContainerAlt}
+    >
       <img
         src={userImg}
         className={styles.img}
@@ -30,7 +34,7 @@ export default function Hook({
           { player.username }
           <span className={styles.span}>{ readableDate }</span>
         </h6>
-        <div className={styles.rply}>
+        <div className={styles.content}>
           {hookContent}
         </div>
         <Player url={audioUrl} />

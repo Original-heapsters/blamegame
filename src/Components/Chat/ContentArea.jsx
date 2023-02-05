@@ -73,9 +73,10 @@ export default function ContentArea({ currentGame, username, socket }) {
       </Modal>
       <div className={styles.comments}>
         {
-          messageLog.map((message) => (message.type === 'hook'
+          messageLog.map((message, idx) => (message.type === 'hook'
             ? (
               <Hook
+                index={idx}
                 key={message.id}
                 player={message.player}
                 date={message.date}
@@ -87,6 +88,7 @@ export default function ContentArea({ currentGame, username, socket }) {
             )
             : (
               <Comment
+                index={idx}
                 key={message.id}
                 player={message.player}
                 date={message.date}

@@ -3,7 +3,7 @@
     bottom: 0px;
     width: min(81.5vw, 80%);
     height: 50px;
-    background-color: hsl(0, 12%, 93%);
+    background-color: var(--surface);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -29,14 +29,14 @@
     width: 15%;
     border-radius: 5px;
     border-style: none;
-    background-color: hsl(294, 68%, 34%);
-    color: white;
+    background-color: var(--primary);
+    color: var(--onPrimary);
     margin-left: 10px
   }
   
   .btn:hover {
     cursor: pointer;
-    background-color: hsl(294, 68%, 31%);
-    color: white;
+    background-color: var(--primaryVariant);
+    color: var(--onPrimary);
   }
   
