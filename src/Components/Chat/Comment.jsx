@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './comment.module.css';
 
 export default function Comment({
+  index,
   id,
   player,
   date,
@@ -12,7 +13,10 @@ export default function Comment({
   const readableDate = new Date(date).toLocaleString('en-US');
 
   return (
-    <div key={id} className={styles.commentContainer}>
+    <div
+      key={id}
+      className={index % 2 === 0 ? styles.commentContainer : styles.commentContainerAlt}
+    >
       <img
         src={userImg}
         className={styles.img}

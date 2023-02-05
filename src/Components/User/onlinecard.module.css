@@ -32,5 +32,5 @@ img {
 .span {
   padding-left: 10px;
   font-size: 10px;
-  color: gray;
+  color: var(--primaryVariant);
 }

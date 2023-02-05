@@ -1,16 +1,26 @@
 import React, { useState, useCallback } from 'react';
 import styles from './reply.module.css';
 
-export default function Reply({ currentGame, username, socket }) {
+export default function Reply({
+  currentGame,
+  username,
+  profileUrl,
+  socket,
+}) {
   // ///////////////////////////////// STATE ///////////////////////////////////
   const [msg, setMsg] = useState('');
 
   // ///////////////////////////////// EFFECTS ///////////////////////////////////
   const sendMessage = useCallback(() => {
     if (currentGame && msg !== '') {
-      socket.emit('chatMessage', { game: currentGame.name, user: username, msg });
+      socket.emit('chatMessage', {
+        game: currentGame.name,
+        user: username,
+        profileUrl,
+        msg,
+      });
     }
-  }, [msg, currentGame, username, socket]);
+  }, [msg, currentGame, username, profileUrl, socket]);
 
   // ///////////////////////////////// HANDLERS ///////////////////////////////////
   const inputChangeHandler = (e) => {

@@ -1,10 +1,19 @@
-.hookContainer {
+.hookContainer, .hookContainerAlt {
   display: flex;
   padding: 10px 20px;
+  border-radius: 25px 0px 25px 25px;
+  margin: 0px 0px 8px 8px;
+  background-color: var(--secondary);
 }
+
+.hookContainerAlt {
+  background-color: var(--secondaryVariant);
+}
+
 .img {
-  width: 60px;
-  height: 60px;
+  max-width: 60px;
+  max-height: 60px;
+  background-color: var(--onSecondary);
   border-radius: 5px;
 }
 .nameReplyContainer {
@@ -12,12 +21,14 @@
 }
 .h7 {
   text-align: left;
+  color: var(--onSecondary);
 }
 .span {
   padding-left: 10px;
   font-size: 10px;
-  color: gray;
+  color: var(--onSecondary);
 }
-.rply {
-  background-color: lightgray;
+
+.hookContent {
+  color: var(--onSecondary);
 }

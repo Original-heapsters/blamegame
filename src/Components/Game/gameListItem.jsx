@@ -15,7 +15,7 @@ export default function GameListItem({
   return (
     <li>
       <Button
-        className={styles.gameListItem}
+        className={isCurrentGame ? styles.gameListItemActive : styles.gameListItem}
         variant={buttonStyle}
         onClick={clickHandler}
       >

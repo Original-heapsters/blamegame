@@ -148,23 +148,30 @@ export default function Layout() {
                   />
                 ))
               }
+              { loggedInUser
+                ? (
+                  <OnlineCard
+                    name={loggedInUser.username}
+                    img={loggedInUser.profileUrl}
+                    isOnline
+                    isCurrentUser
+                  />
+                )
+                : <div />}
             </div>
-          </div>
-          <div className={styles.loggedInUser}>
-            { loggedInUser
-              ? (
-                <OnlineCard
-                  name={loggedInUser.username}
-                  img={loggedInUser.profileUrl}
-                  isOnline
-                  isCurrentUser
-                />
-              )
-              : <div />}
           </div>
         </div>
         <div className={styles.content}>
-          <ContentArea currentGame={currentGame} username={username} socket={socket} />
+          { loggedInUser
+            ? (
+              <ContentArea
+                currentGame={currentGame}
+                username={username}
+                profileUrl={loggedInUser.profileUrl}
+                socket={socket}
+              />
+            )
+            : <div />}
         </div>
       </div>
     </div>

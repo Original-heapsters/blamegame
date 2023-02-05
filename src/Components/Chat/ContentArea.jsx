@@ -13,7 +13,12 @@ import Ruleset from '../Modals/Ruleset';
 
 const { REACT_APP_API_SERVER, REACT_APP_API_SERVER_LOCAL, REACT_APP_TEST_LOCAL } = process.env;
 
-export default function ContentArea({ currentGame, username, socket }) {
+export default function ContentArea({
+  currentGame,
+  username,
+  profileUrl,
+  socket,
+}) {
   // ///////////////////////////////// STATE ///////////////////////////////////
   const [messageLog, setMessageLog] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -73,9 +78,10 @@ export default function ContentArea({ currentGame, username, socket }) {
       </Modal>
       <div className={styles.comments}>
         {
-          messageLog.map((message) => (message.type === 'hook'
+          messageLog.map((message, idx) => (message.type === 'hook'
             ? (
               <Hook
+                index={idx}
                 key={message.id}
                 player={message.player}
                 date={message.date}
@@ -87,6 +93,7 @@ export default function ContentArea({ currentGame, username, socket }) {
             )
             : (
               <Comment
+                index={idx}
                 key={message.id}
                 player={message.player}
                 date={message.date}
@@ -102,7 +109,12 @@ export default function ContentArea({ currentGame, username, socket }) {
         </div>
         <button type="button" className={styles.btn}>submit</button>
       </div>
-      <Reply currentGame={currentGame} username={username} socket={socket} />
+      <Reply
+        currentGame={currentGame}
+        username={username}
+        profileUrl={profileUrl}
+        socket={socket}
+      />
     </div>
   );
 }

@@ -1,8 +1,14 @@
-.gameListItem {
+.gameListItem, .gameListItemActive {
   width: 100%;
   text-align: left;
   margin-top: 5px;
   outline: none;
   outline-offset: none;
   box-shadow: none;
+  background-color: var(--primaryVariant);
+  color: var(--onPrimary);
+}
+
+.gameListItemActive {
+  color: var(--onSecondary);
 }

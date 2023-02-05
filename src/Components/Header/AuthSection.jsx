@@ -42,9 +42,9 @@ export default function AuthSection({
           ? <LoggedInUser user={loggedInUser} logoutHandler={logoutHandler} />
           : (
             <div>
-              <button type="button" onClick={seedHandler}>Re-Seed</button>
-              <button type="button" onClick={signInHandler}>Sign in</button>
-              <button type="button" onClick={signUpHandler}>Sign up</button>
+              <button className={styles.seedBtn} type="button" onClick={seedHandler}>Re-Seed</button>
+              <button className={styles.signInBtn} type="button" onClick={signInHandler}>Sign in</button>
+              <button className={styles.signUpBtn} type="button" onClick={signUpHandler}>Sign up</button>
               <AuthenticationModal
                 closeModal={modalHideHandler}
                 showModal={modalOpen}
