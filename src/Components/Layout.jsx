@@ -162,7 +162,16 @@ export default function Layout() {
           </div>
         </div>
         <div className={styles.content}>
-          <ContentArea currentGame={currentGame} username={username} socket={socket} />
+          { loggedInUser
+            ? (
+              <ContentArea
+                currentGame={currentGame}
+                username={username}
+                profileUrl={loggedInUser.profileUrl}
+                socket={socket}
+              />
+            )
+            : <div />}
         </div>
       </div>
     </div>
