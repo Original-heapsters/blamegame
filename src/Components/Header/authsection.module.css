@@ -4,3 +4,36 @@
   align-items: center;
   justify-content: flex-end;
 }
+
+.seedBtn {
+  width: 100px;
+  background-color: var(--primaryVariant);
+  color: var(--onPrimary);
+}
+
+.seedBtn:hover {
+  background-color: var(--onPrimary);
+  color: var(--primary);
+}
+
+.signInBtn {
+  width: 100px;
+  background-color: var(--primaryVariant);
+  color: var(--onPrimary);
+}
+
+.signInBtn:hover {
+  background-color: var(--onPrimary);
+  color: var(--primary);
+}
+
+.signUpBtn {
+  width: 100px;
+  background-color: var(--primaryVariant);
+  color: var(--onPrimary);
+}
+
+.signUpBtn:hover {
+  background-color: var(--onPrimary);
+  color: var(--primary);
+}
