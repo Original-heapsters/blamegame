@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 import styles from './loggedInUser.module.css';
 
 export default function LoggedInUser({
@@ -17,7 +18,7 @@ export default function LoggedInUser({
       <h5 className={styles.userName}>
         {username}
       </h5>
-      <button className={styles.logoutButton} type="button" onClick={logoutHandler}>Logout</button>
+      <Button className={styles.logoutButton} onClick={logoutHandler}>Logout</Button>
     </div>
   );
 }

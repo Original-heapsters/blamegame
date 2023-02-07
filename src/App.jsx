@@ -1,10 +1,10 @@
 import React from 'react';
-import Layout from './Components/Layout';
+import GridLayout from './Components/GridLayout';
 
 export default function App() {
   return (
     <div className="App">
-      <Layout />
+      <GridLayout />
     </div>
   );
 }

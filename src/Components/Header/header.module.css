@@ -1,0 +1,10 @@
+.headerAppBar {
+	color: var(--onPrimary);
+	background-color: var(--primary);
+}
+
+.headerButton {
+	margin: 8px;
+	color: var(--onPrimary);
+	background-color: var(--primaryVariant);
+}
