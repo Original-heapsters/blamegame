@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import jwtDecode from 'jwt-decode';
+import React, { useState, useEffect, useCallback } from 'react';
+import Grid from '@mui/material/Unstable_Grid2';
+import Button from '@mui/material/Button';
 import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 import io from 'socket.io-client';
-import styles from './layout.module.css';
-import OnlineCard from './User/OnlineCard';
-import ContentArea from './Chat/ContentArea';
-import GameListItem from './Game/GameListItem';
-import AuthSection from './Header/AuthSection';
+import Header from './Header/Header';
+import GameList from './Sidebar/GameList';
+import PlayerList from './Sidebar/PlayerList';
+import MessageLog from './Chat/MessageLog';
+import Reply from './Chat/Reply';
+import Modal from './modal/modal';
+import Ruleset from './Modals/Ruleset';
+import styles from './gridLayout.module.css';
 import getGames from '../Api/Game/getGames';
 import getPlayers from '../Api/Game/getPlayers';
 import * as api from '../Api/Authentication/index';
@@ -16,9 +21,10 @@ const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL :
 
 const socket = io.connect(apiServer);
 
-export default function Layout() {
-  // ///////////////////////////////// STATE ///////////////////////////////////
+export default function GridLayout() {
   const [signingIn, setSigningIn] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [message, setMessage] = useState('');
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -28,7 +34,6 @@ export default function Layout() {
   const [gameList, setGameList] = useState([]);
   const [currentGame, setCurrentGame] = useState();
 
-  // ///////////////////////////////// EFFECTS ///////////////////////////////////
   useEffect(() => {
     // Check for existing login token
     const token = Cookies.get('token');
@@ -62,7 +67,6 @@ export default function Layout() {
     }
   }, [currentGame]);
 
-  // ///////////////////////////////// HANDLERS ///////////////////////////////////
   const loginHandler = async () => {
     const creds = {
       username,
@@ -99,13 +103,26 @@ export default function Layout() {
     socket.emit('join', { game: game.name, user: username });
   };
 
+  const modalOpenHandler = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const sendMessage = useCallback(() => {
+    if (currentGame && message !== '' && loggedInUser) {
+      socket.emit('chatMessage', {
+        game: currentGame.name,
+        user: loggedInUser.username,
+        profileUrl: loggedInUser.profileUrl,
+        msg: message,
+      });
+    }
+  }, [message, currentGame, loggedInUser]);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.logo}>
-          <h1>BLAME GAME</h1>
-        </div>
-        <AuthSection
+    <Grid container className={styles.mainContainer}>
+      <Grid container xs={12} className={styles.headerBlank}>
+        <Header
+          xs={12}
           signingIn={signingIn}
           setSigningIn={setSigningIn}
           loggedInUser={loggedInUser}
@@ -115,65 +132,45 @@ export default function Layout() {
           setEmail={setEmail}
           loginHandler={loginHandler}
         />
-      </div>
-      <div className={styles.menuContentContainer}>
-        <div className={styles.menu}>
-          <div className={styles.games}>
-            <h5>games</h5>
-            <div className={styles.gamesContainer}>
-              <ul>
-                {
-                  gameList.map((game) => (
-                    <GameListItem
-                      key={game.id}
-                      game={game}
-                      isCurrentGame={currentGame && game.name === currentGame.name}
-                      switchRooms={switchRooms}
-                    />
-                  ))
-                }
-              </ul>
-            </div>
-          </div>
-          <div className={styles.online}>
-            <h5>online</h5>
-            <div className={styles.onlineCardContainer}>
-              {
-                playerList.map((player) => (
-                  <OnlineCard
-                    key={player.id}
-                    name={player.username}
-                    img={player.profileUrl}
-                    isOnline={player.isOnline}
-                  />
-                ))
-              }
-              { loggedInUser
-                ? (
-                  <OnlineCard
-                    name={loggedInUser.username}
-                    img={loggedInUser.profileUrl}
-                    isOnline
-                    isCurrentUser
-                  />
-                )
-                : <div />}
-            </div>
-          </div>
-        </div>
-        <div className={styles.content}>
-          { loggedInUser
-            ? (
-              <ContentArea
-                currentGame={currentGame}
-                username={username}
-                profileUrl={loggedInUser.profileUrl}
-                socket={socket}
+      </Grid>
+      <Grid container xs={12} className={styles.bodyContainer}>
+        <Grid xs={3} className={styles.sidebar}>
+          <GameList
+            className={styles.gameList}
+            gameList={gameList}
+            currentGame={currentGame}
+            switchRooms={switchRooms}
+          />
+          <PlayerList playerList={playerList} loggedInUser={loggedInUser} />
+        </Grid>
+        <Grid container xs={9} className={styles.interfaceContainer}>
+          <Grid xs={12} className={styles.gameName}>
+            {
+              currentGame
+                ? <Button onClick={modalOpenHandler}>{currentGame.name}</Button>
+                : <Button>General</Button>
+            }
+            <Modal open={modalOpen} onClose={modalOpenHandler} currentGame={currentGame}>
+              <Ruleset game={currentGame} />
+            </Modal>
+          </Grid>
+          <Grid xs={12} className={styles.chatWindow}>
+            <MessageLog currentGame={currentGame} socket={socket} />
+          </Grid>
+          <Grid container xs={12} className={styles.textEntryContainer}>
+            <Grid xs={10} className={styles.textInput}>
+              <Reply
+                message={message}
+                setMessage={setMessage}
+                sendMessage={sendMessage}
               />
-            )
-            : <div />}
-        </div>
-      </div>
-    </div>
+            </Grid>
+            <Grid xs={2} className={styles.textSubmit}>
+              <Button onClick={sendMessage}>submit</Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

@@ -5,23 +5,14 @@
 .img {
 	max-width: 60px;
 	max-height: 60px;
-	background-color: var(--onSecondary);
+	background-color: var(--primary);
 	border-radius: 5px;
 	margin-right: 8px;
 }
 
 .userName {
-	color: var(--onPrimary);
-	margin-right: 8px;
 }
 
 .logoutButton {
-	width: 100px;
-	color: var(--onPrimary);
-	background-color: var(--primaryVariant);
-}
-
-.logoutButton:hover {
-	color: var(--onSecondary);
-	background-color: var(--secondary);
+	margin: 8px;
 }

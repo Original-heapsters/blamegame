@@ -1,42 +1,4 @@
-.replyContainer {
-    position: absolute;
-    bottom: 0px;
-    width: min(81.5vw, 80%);
-    height: 50px;
-    background-color: var(--surface);
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 5px;
-  }
-  .replyCont {
-    border-radius: 5px;
-    width: 85%;
-    height: 50%;
-  }
-  .reply {
-    border-radius: 5px;
-    width: 100%;
+  .replyTextField {
     height: 100%;
-    border-style: none;
-    padding-left: 10px;
-  }
-  .reply:focus {
-    outline: none;
-  }
-  .btn {
-    height: 50%;
-    width: 15%;
-    border-radius: 5px;
-    border-style: none;
-    background-color: var(--primary);
-    color: var(--onPrimary);
-    margin-left: 10px
-  }
-  
-  .btn:hover {
-    cursor: pointer;
-    background-color: var(--primaryVariant);
-    color: var(--onPrimary);
   }
   

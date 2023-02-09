@@ -1,5 +1,10 @@
 import React from 'react';
-
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 import styles from './comment.module.css';
 
 export default function Comment({
@@ -13,24 +18,36 @@ export default function Comment({
   const readableDate = new Date(date).toLocaleString('en-US');
 
   return (
-    <div
+    <Paper
       key={id}
       className={index % 2 === 0 ? styles.commentContainer : styles.commentContainerAlt}
     >
-      <img
-        src={userImg}
-        className={styles.img}
-        alt="test"
-      />
-      <div className={styles.nameReplyContainer}>
-        <h6 className={styles.h7}>
-          { player }
-          <span className={styles.span}>{ readableDate }</span>
-        </h6>
-        <div className={styles.rply}>
-          {message}
-        </div>
-      </div>
-    </div>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar
+            src={userImg}
+            variant="rounded"
+            alt={player.username}
+          />
+        </ListItemAvatar>
+        <ListItemText
+          primary={`${player} ${readableDate}`}
+          secondary={
+            (
+              <fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {message}
+                </Typography>
+              </fragment>
+            )
+          }
+        />
+      </ListItem>
+    </Paper>
   );
 }

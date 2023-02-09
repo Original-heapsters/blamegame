@@ -2,32 +2,10 @@
   display: flex;
   padding: 10px 20px;
   margin: 0px 8px 8px 0px;
-  background-color: var(--secondary);
+/*  background-color: var(--secondary);*/
   border-radius: 0px 25px 25px 25px;
 }
 
 .commentContainerAlt {
-  background-color: var(--secondaryVariant);
-}
-
-.img {
-  max-width: 60px;
-  max-height: 60px;
-  background-color: var(--onSecondary);
-  border-radius: 5px;
-}
-.nameReplyContainer {
-  padding-left: 10px;
-}
-.h7 {
-  text-align: left;
-  color: var(--onSecondary);
-}
-.span {
-  padding-left: 10px;
-  font-size: 10px;
-  color: var(--onSecondary);
-}
-.rply {
-  color: var(--onSecondary);
+/*  background-color: var(--secondaryVariant);*/
 }

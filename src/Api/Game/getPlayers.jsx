@@ -39,6 +39,13 @@ export default function getPlayers(gameName) {
       isOnline: false,
       gameName,
     },
+    {
+      id: '6',
+      username: 'chad',
+      profileUrl: 'https://i.pinimg.com/550x/6b/95/01/6b9501905d858837e8258c474c1f99c5.jpg',
+      isOnline: false,
+      gameName,
+    },
   ];
   return new Promise((res) => {
     res(debugPlayers);
