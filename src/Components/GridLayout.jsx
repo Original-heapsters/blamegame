@@ -91,7 +91,6 @@ export default function GridLayout() {
     setSigningIn(false);
     Cookies.remove('token');
     setCurrentGame('general');
-    console.log(`${jwt}${playerList}${gameList}${currentGame}`);
   };
 
   const switchRooms = (game) => {

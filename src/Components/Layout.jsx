@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import styles from './layout.module.css';
 import OnlineCard from './User/OnlineCard';
 import ContentArea from './Chat/ContentArea';
-import GameListItem from './Game/gameListItem';
+import GameListItem from './Game/GameListItem';
 import AuthSection from './Header/AuthSection';
 import getGames from '../Api/Game/getGames';
 import getPlayers from '../Api/Game/getPlayers';
