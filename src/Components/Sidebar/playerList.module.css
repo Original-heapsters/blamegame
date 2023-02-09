@@ -1,0 +1,18 @@
+.playerList {
+	height: 41vh;
+	overflow: auto;
+	-ms-overflow-style: none;  /* IE and Edge */
+  	scrollbar-width: none;  /* Firefox */
+}
+
+.playerList::-webkit-scrollbar {
+	display: none;
+}
+
+.playersHeader {
+	height: 4vh;
+}
+
+.playerListContaier {
+	height: 50%;
+}

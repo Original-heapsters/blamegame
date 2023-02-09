@@ -1,15 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
+import Button from '@mui/material/Button';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
+import io from 'socket.io-client';
 import Header from './Header/Header';
+import GameList from './Sidebar/GameList';
+import PlayerList from './Sidebar/PlayerList';
+import MessageLog from './Chat/MessageLog';
+import Reply from './Chat/Reply';
+import Modal from './modal/modal';
+import Ruleset from './Modals/Ruleset';
 import styles from './gridLayout.module.css';
 import getGames from '../Api/Game/getGames';
 import getPlayers from '../Api/Game/getPlayers';
 import * as api from '../Api/Authentication/index';
 
+const { REACT_APP_API_SERVER, REACT_APP_API_SERVER_LOCAL, REACT_APP_TEST_LOCAL } = process.env;
+const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
+
+const socket = io.connect(apiServer);
+
 export default function GridLayout() {
   const [signingIn, setSigningIn] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [message, setMessage] = useState('');
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -79,10 +94,36 @@ export default function GridLayout() {
     console.log(`${jwt}${playerList}${gameList}${currentGame}`);
   };
 
+  const switchRooms = (game) => {
+    const prevGame = currentGame.name;
+    if (currentGame.id === game.id) {
+      return;
+    }
+    socket.emit('leave', { game: prevGame, user: username });
+    setCurrentGame(game);
+    socket.emit('join', { game: game.name, user: username });
+  };
+
+  const modalOpenHandler = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const sendMessage = useCallback(() => {
+    if (currentGame && message !== '' && loggedInUser) {
+      socket.emit('chatMessage', {
+        game: currentGame.name,
+        user: loggedInUser.username,
+        profileUrl: loggedInUser.profileUrl,
+        msg: message,
+      });
+    }
+  }, [message, currentGame, loggedInUser]);
+
   return (
     <Grid container className={styles.mainContainer}>
       <Grid container xs={12} className={styles.headerBlank}>
         <Header
+          xs={12}
           signingIn={signingIn}
           setSigningIn={setSigningIn}
           loggedInUser={loggedInUser}
@@ -95,21 +136,38 @@ export default function GridLayout() {
       </Grid>
       <Grid container xs={12} className={styles.bodyContainer}>
         <Grid xs={3} className={styles.sidebar}>
-          <h1>sidebar</h1>
+          <GameList
+            className={styles.gameList}
+            gameList={gameList}
+            currentGame={currentGame}
+            switchRooms={switchRooms}
+          />
+          <PlayerList playerList={playerList} loggedInUser={loggedInUser} />
         </Grid>
         <Grid container xs={9} className={styles.interfaceContainer}>
           <Grid xs={12} className={styles.gameName}>
-            <h1>Game Name</h1>
+            {
+              currentGame
+                ? <Button onClick={modalOpenHandler}>{currentGame.name}</Button>
+                : <Button>General</Button>
+            }
+            <Modal open={modalOpen} onClose={modalOpenHandler} currentGame={currentGame}>
+              <Ruleset game={currentGame} />
+            </Modal>
           </Grid>
           <Grid xs={12} className={styles.chatWindow}>
-            <h1>chatWindow</h1>
+            <MessageLog currentGame={currentGame} socket={socket} />
           </Grid>
           <Grid container xs={12} className={styles.textEntryContainer}>
             <Grid xs={10} className={styles.textInput}>
-              <h1>text input</h1>
+              <Reply
+                message={message}
+                setMessage={setMessage}
+                sendMessage={sendMessage}
+              />
             </Grid>
             <Grid xs={2} className={styles.textSubmit}>
-              <h1>textSubmit</h1>
+              <Button onClick={sendMessage}>submit</Button>
             </Grid>
           </Grid>
         </Grid>

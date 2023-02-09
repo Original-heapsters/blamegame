@@ -11,16 +11,8 @@
 }
 
 .userName {
-	color: var(--onPrimary);
-	margin-right: 8px;
 }
 
 .logoutButton {
-	color: var(--onPrimary);
-	background-color: var(--primaryVariant);
-}
-
-.logoutButton:hover {
-	color: var(--onSecondary);
-	background-color: var(--secondary);
+	margin: 8px;
 }

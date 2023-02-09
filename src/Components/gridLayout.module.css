@@ -1,49 +1,56 @@
 .mainContainer {
   width: 100%;
   height: 98vh;
-  background-color: blue;
+/*  background-color: blue;*/
 }
 
 .headerBlank {
   height: 7%;
-  background-color: red;
+/*  background-color: red;*/
 }
 
 .bodyContainer {
   height: 93%;
-  background-color: purple;
+/*  background-color: purple;*/
 }
 
 .gameName {
   height: 5%;
-  background-color: hotpink;
+  border-bottom: 1px solid grey;
+/*  background-color: hotpink;*/
 }
 
 .sidebar {
-  background-color: pink;
+  height: 100%;
+  border-right: 1px solid grey;
+/*  background-color: pink;*/
+}
+
+.gameList {
+  height: 80%;
 }
 
 .interfaceContainer {
   height: 100%;
-  background-color: orange;
+/*  background-color: orange;*/
 }
 
 .chatWindow {
   height: 85%;
-  background-color: green;
+/*  background-color: green;*/
 }
 
 .textEntryContainer {
   height: 10%;
-  background-color: lime;
+/*  background-color: lime;*/
 }
 
 .textInput {
   height: 100%;
-  background-color: lime;
+/*  background-color: lime;*/
 }
 
 .textsubmit {
   height: 100%;
-  background-color: lime;
+/*  background-color: lime;*/
 }

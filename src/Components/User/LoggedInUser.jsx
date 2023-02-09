@@ -1,5 +1,8 @@
 import React from 'react';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import styles from './loggedInUser.module.css';
 
 export default function LoggedInUser({
@@ -9,16 +12,15 @@ export default function LoggedInUser({
   const userImg = user.profileUrl || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
   const { username } = user;
   return (
-    <div className={styles.loggedInUser}>
-      <img
+    <Box className={styles.loggedInUser}>
+      <Avatar
         src={userImg}
-        className={styles.img}
-        alt="test"
+        alt={username}
       />
-      <h5 className={styles.userName}>
+      <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
         {username}
-      </h5>
+      </Typography>
       <Button className={styles.logoutButton} onClick={logoutHandler}>Logout</Button>
-    </div>
+    </Box>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -39,30 +40,32 @@ export default function Header({
   };
 
   return (
-    <AppBar position="static" className={styles.headerAppBar}>
-      <Toolbar>
-        <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-          BlameGame
-        </Typography>
-        <Button className={styles.headerButton} onClick={seedHandler}>Re-Seed</Button>
-        { loggedInUser
-          ? <LoggedInUser user={loggedInUser} logoutHandler={logoutHandler} />
-          : (
-            <div>
-              <Button className={styles.headerButton} onClick={signInHandler}>Sign In</Button>
-              <Button className={styles.headerButton} onClick={signUpHandler}>Sign Up</Button>
-              <AuthenticationModal
-                closeModal={modalHideHandler}
-                showModal={modalOpen}
-                signingIn={signingIn}
-                setUsername={setUsername}
-                setPassword={setPassword}
-                setEmail={setEmail}
-                login={loginHandler}
-              />
-            </div>
-          )}
-      </Toolbar>
-    </AppBar>
+    <Box className={styles.headerAppBar}>
+      <Paper>
+        <Toolbar>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+            BlameGame
+          </Typography>
+          <Button onClick={seedHandler}>Re-Seed</Button>
+          { loggedInUser
+            ? <LoggedInUser user={loggedInUser} logoutHandler={logoutHandler} />
+            : (
+              <div>
+                <Button onClick={signInHandler}>Sign In</Button>
+                <Button onClick={signUpHandler}>Sign Up</Button>
+                <AuthenticationModal
+                  closeModal={modalHideHandler}
+                  showModal={modalOpen}
+                  signingIn={signingIn}
+                  setUsername={setUsername}
+                  setPassword={setPassword}
+                  setEmail={setEmail}
+                  login={loginHandler}
+                />
+              </div>
+            )}
+        </Toolbar>
+      </Paper>
+    </Box>
   );
 }

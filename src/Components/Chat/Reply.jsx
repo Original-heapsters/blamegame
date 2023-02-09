@@ -1,50 +1,24 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
+import TextField from '@mui/material/TextField';
 import styles from './reply.module.css';
 
 export default function Reply({
-  currentGame,
-  username,
-  profileUrl,
-  socket,
+  message,
+  setMessage,
+  sendMessage,
 }) {
-  // ///////////////////////////////// STATE ///////////////////////////////////
-  const [msg, setMsg] = useState('');
-
-  // ///////////////////////////////// EFFECTS ///////////////////////////////////
-  const sendMessage = useCallback(() => {
-    if (currentGame && msg !== '') {
-      socket.emit('chatMessage', {
-        game: currentGame.name,
-        user: username,
-        profileUrl,
-        msg,
-      });
-    }
-  }, [msg, currentGame, username, profileUrl, socket]);
-
-  // ///////////////////////////////// HANDLERS ///////////////////////////////////
   const inputChangeHandler = (e) => {
-    setMsg(e.target.value);
+    setMessage(e.target.value);
   };
 
   const enterListener = (e) => {
-    if ((e.key === 'Enter' || e.key === 'NumpadEnter') && msg !== '') {
+    if ((e.key === 'Enter' || e.key === 'NumpadEnter') && message !== '') {
       sendMessage();
-      setMsg('');
+      setMessage('');
     }
   };
 
-  const sendMessageHandler = () => {
-    sendMessage();
-    setMsg('');
-  };
-
   return (
-    <div className={styles.replyContainer}>
-      <div className={styles.replyCont}>
-        <input type="text" name="reply" className={styles.reply} placeholder="reply..." onChange={inputChangeHandler} onKeyDown={enterListener} value={msg} />
-      </div>
-      <button type="button" className={styles.btn} onClick={sendMessageHandler}>submit</button>
-    </div>
+    <TextField className={styles.replyTextField} variant="outlined" multiline minRows="2" fullWidth onChange={inputChangeHandler} onKeyDown={enterListener} value={message} />
   );
 }

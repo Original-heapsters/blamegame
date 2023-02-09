@@ -1,4 +1,10 @@
 import React from 'react';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 import Player from '../Util/Player';
 import styles from './hook.module.css';
 
@@ -20,25 +26,34 @@ export default function Hook({
   const hookContent = `${hook}:${consequence.rule} -> ${consequence.cause}`;
 
   return (
-    <div
-      key={id}
-      className={index % 2 === 0 ? styles.hookContainer : styles.hookContainerAlt}
-    >
-      <img
-        src={userImg}
-        className={styles.img}
-        alt="test"
-      />
-      <div className={styles.nameReplyContainer}>
-        <h6 className={styles.h7}>
-          { player.username }
-          <span className={styles.span}>{ readableDate }</span>
-        </h6>
-        <div className={styles.content}>
-          {hookContent}
-        </div>
-        <Player url={audioUrl} />
-      </div>
-    </div>
+    <Paper key={id} className={index % 2 === 0 ? styles.hookContainer : styles.hookContainerAlt}>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar
+            src={userImg}
+            variant="rounded"
+            alt={player.username}
+          />
+        </ListItemAvatar>
+        <ListItemText
+          primary={`${player.username} ${readableDate}`}
+          secondary={
+            (
+              <fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {hookContent}
+                </Typography>
+                <Player url={audioUrl} />
+              </fragment>
+            )
+          }
+        />
+      </ListItem>
+    </Paper>
   );
 }
