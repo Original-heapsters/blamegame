@@ -20,7 +20,7 @@ export default function LoggedInUser({
       <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
         {username}
       </Typography>
-      <Button className={styles.logoutButton} onClick={logoutHandler}>Logout</Button>
+      <Button variant="contained" className={styles.logoutButton} onClick={logoutHandler}>Logout</Button>
     </Box>
   );
 }
