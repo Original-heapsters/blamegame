@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
-import Cookies from 'js-cookie';
+import Cookies from 'universal-cookie';
 import io from 'socket.io-client';
 import styles from './layout.module.css';
 import OnlineCard from './User/OnlineCard';

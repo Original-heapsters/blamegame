@@ -62,6 +62,7 @@ export default function MessageLog({
                 index={idx}
                 key={message.id}
                 player={message.player}
+                profileUrl={message.profileUrl}
                 date={message.date}
                 message={message.message}
                 consequence={message.consequence}
@@ -74,6 +75,7 @@ export default function MessageLog({
                 index={idx}
                 key={message.id}
                 player={message.player}
+                profileUrl={message.profileUrl}
                 date={message.date}
                 message={message.message}
               />

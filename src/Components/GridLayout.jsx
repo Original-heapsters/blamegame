@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import Button from '@mui/material/Button';
-import Cookies from 'js-cookie';
+import Cookies from 'universal-cookie';
 import jwtDecode from 'jwt-decode';
 import io from 'socket.io-client';
 import Header from './Header/Header';
@@ -20,6 +20,7 @@ const { REACT_APP_API_SERVER, REACT_APP_API_SERVER_LOCAL, REACT_APP_TEST_LOCAL }
 const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
 
 const socket = io.connect(apiServer);
+const cookies = new Cookies();
 
 export default function GridLayout() {
   const [signingIn, setSigningIn] = useState(false);
@@ -36,13 +37,20 @@ export default function GridLayout() {
 
   useEffect(() => {
     // Check for existing login token
-    const token = Cookies.get('token');
-    setJwt(token);
+    const token = cookies.get('authToken');
+    if (token) {
+      setJwt(token);
+    }
   }, []);
 
   useEffect(() => {
     if (jwt) {
       const decoded = jwtDecode(jwt);
+      const expirationDate = new Date();
+
+      // (Just change 7 for the number of days you want to let this cookie exist)
+      expirationDate.setDate(expirationDate.getDate() + 7);
+      cookies.set('authToken', jwt, { expires: expirationDate });
       const loginUser = {
         profileUrl: 'https://i.natgeofe.com/k/e094f0a9-3cb3-40c3-afaf-314b6437ef14/ww-funny-animal-faces-goat_3x2.jpg',
         ...decoded,
@@ -89,8 +97,9 @@ export default function GridLayout() {
     setPlayerList([]);
     setLoggedInUser(null);
     setSigningIn(false);
-    Cookies.remove('token');
-    setCurrentGame('general');
+    cookies.remove('token');
+    cookies.remove('authToken');
+    setCurrentGame();
   };
 
   const switchRooms = (game) => {
