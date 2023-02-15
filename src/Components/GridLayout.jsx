@@ -23,12 +23,8 @@ const socket = io.connect(apiServer);
 const cookies = new Cookies();
 
 export default function GridLayout() {
-  const [signingIn, setSigningIn] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [email, setEmail] = useState();
   const [loggedInUser, setLoggedInUser] = useState();
   const [jwt, setJwt] = useState();
   const [playerList, setPlayerList] = useState([]);
@@ -52,7 +48,7 @@ export default function GridLayout() {
       expirationDate.setDate(expirationDate.getDate() + 7);
       cookies.set('authToken', jwt, { expires: expirationDate });
       const loginUser = {
-        profileUrl: 'https://i.natgeofe.com/k/e094f0a9-3cb3-40c3-afaf-314b6437ef14/ww-funny-animal-faces-goat_3x2.jpg',
+        profileUrl: decoded.profileUrl || 'https://i.natgeofe.com/k/e094f0a9-3cb3-40c3-afaf-314b6437ef14/ww-funny-animal-faces-goat_3x2.jpg',
         ...decoded,
       };
       setLoggedInUser(loginUser);
@@ -75,18 +71,13 @@ export default function GridLayout() {
     }
   }, [currentGame]);
 
-  const loginHandler = async () => {
-    const creds = {
-      username,
-      email,
-      password,
-    };
+  const loginHandler = async (auth, isSigningIn) => {
     let token;
-    if (signingIn) {
-      const { token: signInToken } = await api.signIn(creds);
+    if (isSigningIn) {
+      const { token: signInToken } = await api.signIn(auth);
       token = signInToken;
     } else {
-      const { token: signUpToken } = await api.signUp(creds);
+      const { token: signUpToken } = await api.signUp(auth);
       token = signUpToken;
     }
     setJwt(token);
@@ -96,7 +87,6 @@ export default function GridLayout() {
     setGameList([]);
     setPlayerList([]);
     setLoggedInUser(null);
-    setSigningIn(false);
     cookies.remove('token');
     cookies.remove('authToken');
     setCurrentGame();
@@ -107,9 +97,9 @@ export default function GridLayout() {
     if (currentGame.id === game.id) {
       return;
     }
-    socket.emit('leave', { game: prevGame, user: username });
+    socket.emit('leave', { game: prevGame, user: loggedInUser.username, profileUrl: loggedInUser.profileUrl });
     setCurrentGame(game);
-    socket.emit('join', { game: game.name, user: username });
+    socket.emit('join', { game: game.name, user: loggedInUser.username, profileUrl: loggedInUser.profileUrl });
   };
 
   const modalOpenHandler = () => {
@@ -132,13 +122,8 @@ export default function GridLayout() {
       <Grid container xs={12} className={styles.headerBlank}>
         <Header
           xs={12}
-          signingIn={signingIn}
-          setSigningIn={setSigningIn}
           loggedInUser={loggedInUser}
           logoutHandler={logoutHandler}
-          setUsername={setUsername}
-          setPassword={setPassword}
-          setEmail={setEmail}
           loginHandler={loginHandler}
         />
       </Grid>
@@ -175,7 +160,7 @@ export default function GridLayout() {
               />
             </Grid>
             <Grid xs={2} className={styles.textSubmit}>
-              <Button onClick={sendMessage}>submit</Button>
+              <Button variant="contained" className={styles.btnSubmit} onClick={sendMessage}>submit</Button>
             </Grid>
           </Grid>
         </Grid>

@@ -6,37 +6,28 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import styles from './header.module.css';
 import LoggedInUser from '../User/LoggedInUser';
-import AuthenticationModal from '../Modals/AuthenticationModal';
+import SignUpModal from '../Modals/SignUpModal';
+import SignInModal from '../Modals/SignInModal';
 import seedBackend from '../../Api/Debug/seed';
 
 export default function Header({
-  signingIn,
-  setSigningIn,
   loggedInUser,
   logoutHandler,
-  setUsername,
-  setPassword,
-  setEmail,
   loginHandler,
 }) {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
 
   const seedHandler = () => {
     seedBackend();
     window.location.reload(0);
   };
   const signInHandler = () => {
-    setSigningIn(true);
-    setModalOpen(!modalOpen);
+    setSignInOpen(true);
   };
 
   const signUpHandler = () => {
-    setSigningIn(false);
-    setModalOpen(!modalOpen);
-  };
-
-  const modalHideHandler = () => {
-    setModalOpen(!modalOpen);
+    setSignUpOpen(true);
   };
 
   return (
@@ -46,21 +37,22 @@ export default function Header({
           <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
             BlameGame
           </Typography>
-          <Button onClick={seedHandler}>Re-Seed</Button>
+          <Button variant="contained" onClick={seedHandler}>Re-Seed</Button>
           { loggedInUser
             ? <LoggedInUser user={loggedInUser} logoutHandler={logoutHandler} />
             : (
-              <div>
-                <Button onClick={signInHandler}>Sign In</Button>
-                <Button onClick={signUpHandler}>Sign Up</Button>
-                <AuthenticationModal
-                  closeModal={modalHideHandler}
-                  showModal={modalOpen}
-                  signingIn={signingIn}
-                  setUsername={setUsername}
-                  setPassword={setPassword}
-                  setEmail={setEmail}
-                  login={loginHandler}
+              <div className={styles.authButtons}>
+                <Button variant="contained" onClick={signInHandler}>Sign In</Button>
+                <Button variant="contained" onClick={signUpHandler}>Sign Up</Button>
+                <SignUpModal
+                  signUpOpen={signUpOpen}
+                  setSignUpOpen={setSignUpOpen}
+                  loginHandler={loginHandler}
+                />
+                <SignInModal
+                  signInOpen={signInOpen}
+                  setSignInOpen={setSignInOpen}
+                  loginHandler={loginHandler}
                 />
               </div>
             )}
