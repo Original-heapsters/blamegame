@@ -11,10 +11,11 @@ export default function Comment({
   index,
   id,
   player,
+  profileUrl,
   date,
   message,
 }) {
-  const userImg = player.profileUrl || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
+  const userImg = profileUrl || 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
   const readableDate = new Date(date).toLocaleString('en-US');
 
   return (
@@ -34,16 +35,14 @@ export default function Comment({
           primary={`${player} ${readableDate}`}
           secondary={
             (
-              <fragment>
-                <Typography
-                  sx={{ display: 'inline' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {message}
-                </Typography>
-              </fragment>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {message}
+              </Typography>
             )
           }
         />

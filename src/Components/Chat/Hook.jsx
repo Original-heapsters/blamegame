@@ -14,12 +14,13 @@ export default function Hook({
   index,
   id,
   player,
+  profileUrl,
   consequence,
   hook,
   audio,
   date,
 }) {
-  const userImg = player.profileUrl || 'https://funny-photo.s3.amazonaws.com/templates/1300/preview220.jpg';
+  const userImg = profileUrl || 'https://funny-photo.s3.amazonaws.com/templates/1300/preview220.jpg';
   const readableDate = new Date(date).toLocaleString('en-US');
   const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
   const audioUrl = `${apiServer}${audio}`;
@@ -39,7 +40,7 @@ export default function Hook({
           primary={`${player.username} ${readableDate}`}
           secondary={
             (
-              <fragment>
+              <>
                 <Typography
                   sx={{ display: 'inline' }}
                   component="span"
@@ -49,7 +50,7 @@ export default function Hook({
                   {hookContent}
                 </Typography>
                 <Player url={audioUrl} />
-              </fragment>
+              </>
             )
           }
         />

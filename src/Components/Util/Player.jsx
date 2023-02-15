@@ -29,9 +29,9 @@ function Player({ url }) {
   const [playing, toggle] = useAudio(url);
 
   return (
-    <div>
-      <Button variant="outline-primary" onClick={toggle}>{playing ? 'Pause' : 'Play'}</Button>
-    </div>
+    <Button variant="outline-primary" onClick={toggle}>
+      {playing ? 'Pause' : 'Play'}
+    </Button>
   );
 }
 
