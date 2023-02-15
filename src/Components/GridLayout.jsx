@@ -114,6 +114,7 @@ export default function GridLayout() {
         profileUrl: loggedInUser.profileUrl,
         msg: message,
       });
+      setMessage('');
     }
   }, [message, currentGame, loggedInUser]);
 
