@@ -42,7 +42,7 @@ export default function getPlayers(gameName) {
     {
       id: '6',
       username: 'chad',
-      profileUrl: 'https://i.pinimg.com/550x/6b/95/01/6b9501905d858837e8258c474c1f99c5.jpg',
+      profileUrl: 'https://i.pinimg.com/474x/9a/46/0d/9a460d46bfa9a449ba9379e2f5b9aeba.jpg',
       isOnline: false,
       gameName,
     },
