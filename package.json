@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://original-heapsters.github.io/blamegame/",
   "dependencies": {
-    "@emotion/react": "^11.10.5",
+    "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.8",
     "@testing-library/jest-dom": "^5.16.5",
