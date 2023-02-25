@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
+import IconButton from '@mui/material/IconButton';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import StopIcon from '@mui/icons-material/Stop';
 
 const useAudio = (url) => {
   const [audio] = useState(new Audio(url));
@@ -29,9 +31,9 @@ function Player({ url }) {
   const [playing, toggle] = useAudio(url);
 
   return (
-    <Button variant="outline-primary" onClick={toggle}>
-      {playing ? 'Pause' : 'Play'}
-    </Button>
+    <IconButton color="secondary" onClick={toggle} sx={{ height: '80px', width: '80px' }}>
+      {playing ? <StopIcon /> : <MusicNoteIcon />}
+    </IconButton>
   );
 }
 

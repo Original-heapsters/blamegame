@@ -9,11 +9,13 @@ import LoggedInUser from '../User/LoggedInUser';
 import SignUpModal from '../Modals/SignUpModal';
 import SignInModal from '../Modals/SignInModal';
 import seedBackend from '../../Api/Debug/seed';
+import triggerHook from '../../Api/Debug/hook';
 
 export default function Header({
   loggedInUser,
   logoutHandler,
   loginHandler,
+  currentGame,
 }) {
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
@@ -22,6 +24,11 @@ export default function Header({
     seedBackend();
     window.location.reload(0);
   };
+
+  const randHookHandler = async () => {
+    await triggerHook(loggedInUser.email, currentGame.name);
+  };
+
   const signInHandler = () => {
     setSignInOpen(true);
   };
@@ -32,18 +39,19 @@ export default function Header({
 
   return (
     <Box className={styles.headerAppBar}>
-      <Paper>
+      <Paper sx={{ backgroundColor: 'primary.main' }}>
         <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1, color: 'primary.contrastText' }}>
             BlameGame
           </Typography>
-          <Button variant="contained" onClick={seedHandler}>Re-Seed</Button>
+          <Button variant="contained" color="secondary" onClick={randHookHandler}>Trigger hook</Button>
+          <Button variant="contained" color="secondary" onClick={seedHandler}>Re-Seed</Button>
           { loggedInUser
             ? <LoggedInUser user={loggedInUser} logoutHandler={logoutHandler} />
             : (
               <div className={styles.authButtons}>
-                <Button variant="contained" onClick={signInHandler}>Sign In</Button>
-                <Button variant="contained" onClick={signUpHandler}>Sign Up</Button>
+                <Button variant="contained" color="secondary" onClick={signInHandler}>Sign In</Button>
+                <Button variant="contained" color="secondary" onClick={signUpHandler}>Sign Up</Button>
                 <SignUpModal
                   signUpOpen={signUpOpen}
                   setSignUpOpen={setSignUpOpen}

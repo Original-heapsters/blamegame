@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import Button from '@mui/material/Button';
 import Cookies from 'universal-cookie';
@@ -9,8 +14,7 @@ import GameList from './Sidebar/GameList';
 import PlayerList from './Sidebar/PlayerList';
 import MessageLog from './Chat/MessageLog';
 import Reply from './Chat/Reply';
-import Modal from './modal/modal';
-import Ruleset from './Modals/Ruleset';
+import RulesetModal from './Modals/RulesetModal';
 import styles from './gridLayout.module.css';
 import getGames from '../Api/Game/getGames';
 import getPlayers from '../Api/Game/getPlayers';
@@ -23,13 +27,14 @@ const socket = io.connect(apiServer);
 const cookies = new Cookies();
 
 export default function GridLayout() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [message, setMessage] = useState('');
+  const [rulesetOpen, setRulesetOpen] = useState(false);
+  const [message, setMessage] = useState();
   const [loggedInUser, setLoggedInUser] = useState();
   const [jwt, setJwt] = useState();
   const [playerList, setPlayerList] = useState([]);
   const [gameList, setGameList] = useState([]);
   const [currentGame, setCurrentGame] = useState();
+  const inputRef = useRef();
 
   useEffect(() => {
     // Check for existing login token
@@ -103,7 +108,7 @@ export default function GridLayout() {
   };
 
   const modalOpenHandler = () => {
-    setModalOpen(!modalOpen);
+    setRulesetOpen(true);
   };
 
   const sendMessage = useCallback(() => {
@@ -114,6 +119,7 @@ export default function GridLayout() {
         profileUrl: loggedInUser.profileUrl,
         msg: message,
       });
+      inputRef.current.value = null;
       setMessage('');
     }
   }, [message, currentGame, loggedInUser]);
@@ -126,6 +132,7 @@ export default function GridLayout() {
           loggedInUser={loggedInUser}
           logoutHandler={logoutHandler}
           loginHandler={loginHandler}
+          currentGame={currentGame}
         />
       </Grid>
       <Grid container xs={12} className={styles.bodyContainer}>
@@ -142,12 +149,14 @@ export default function GridLayout() {
           <Grid xs={12} className={styles.gameName}>
             {
               currentGame
-                ? <Button onClick={modalOpenHandler}>{currentGame.name}</Button>
+                ? <Button onClick={modalOpenHandler} color="secondary">Rules</Button>
                 : <Button>General</Button>
             }
-            <Modal open={modalOpen} onClose={modalOpenHandler} currentGame={currentGame}>
-              <Ruleset game={currentGame} />
-            </Modal>
+            <RulesetModal
+              setRulesetOpen={setRulesetOpen}
+              rulesetOpen={rulesetOpen}
+              currentGame={currentGame}
+            />
           </Grid>
           <Grid xs={12} className={styles.chatWindow}>
             <MessageLog currentGame={currentGame} socket={socket} />
@@ -158,6 +167,8 @@ export default function GridLayout() {
                 message={message}
                 setMessage={setMessage}
                 sendMessage={sendMessage}
+                currentGame={currentGame}
+                inputRef={inputRef}
               />
             </Grid>
             <Grid xs={2} className={styles.textSubmit}>

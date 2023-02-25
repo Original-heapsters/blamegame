@@ -1,11 +1,12 @@
 .hookContainer, .hookContainerAlt {
   display: flex;
-  padding: 10px 20px;
-  border-radius: 25px 0px 25px 25px;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 16px 0px 16px 16px;
   margin: 0px 0px 8px 8px;
-/*  background-color: var(--secondary);*/
+  background-color: lightblue;
 }
 
 .hookContainerAlt {
-/*  background-color: var(--secondaryVariant);*/
+  background-color: red;
 }

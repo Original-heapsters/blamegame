@@ -14,13 +14,14 @@ export default function LoggedInUser({
   return (
     <Box className={styles.loggedInUser}>
       <Avatar
+        className={styles.img}
         src={userImg}
         alt={username}
       />
-      <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+      <Typography variant="h5" component="div" className={styles.userName} color="primary.contrastText">
         {username}
       </Typography>
-      <Button variant="contained" className={styles.logoutButton} onClick={logoutHandler}>Logout</Button>
+      <Button variant="contained" color="secondary" className={styles.logoutButton} onClick={logoutHandler}>Logout</Button>
     </Box>
   );
 }

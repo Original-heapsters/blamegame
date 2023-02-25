@@ -5,25 +5,26 @@
 }
 
 .headerBlank {
-  height: 7%;
+  height: 4%;
 /*  background-color: red;*/
 }
 
 .bodyContainer {
-  height: 93%;
-/*  background-color: purple;*/
+  height: 94%;
 }
 
 .gameName {
+  margin-top: 16px;
   height: 5%;
   border-bottom: 1px solid grey;
 /*  background-color: hotpink;*/
 }
 
 .sidebar {
-  height: 100%;
-  border-right: 1px solid grey;
-/*  background-color: pink;*/
+  margin-top: 16px;
+  height: 97%;
+/*  border-right: 1px solid grey;*/
+  background-color: pink;
 }
 
 .gameList {
@@ -36,7 +37,7 @@
 }
 
 .chatWindow {
-  height: 85%;
+  height: 86%;
 /*  background-color: green;*/
 }
 
@@ -46,12 +47,15 @@
 }
 
 .textInput {
+  margin-top: 2px;
+  padding-left: 4px;
   height: 100%;
-/*  background-color: lime;*/
+/*  background-color: red;*/
 }
 
 .textsubmit {
   height: 100%;
+  width: 100%;
 /*  background-color: lime;*/
 }
 
