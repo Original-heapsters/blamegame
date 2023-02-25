@@ -2,6 +2,7 @@ import React from 'react';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
@@ -24,11 +25,12 @@ export default function Hook({
   const readableDate = new Date(date).toLocaleString('en-US');
   const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
   const audioUrl = `${apiServer}${audio}`;
-  const hookContent = `${hook}:${consequence.rule} -> ${consequence.cause}`;
+  const hookContent = `${hook}: ${consequence.rule}`;
+  const hookValue = `${consequence.points} Points`;
 
   return (
-    <Paper key={id} className={index % 2 === 0 ? styles.hookContainer : styles.hookContainerAlt}>
-      <ListItem alignItems="flex-start">
+    <ListItem key={id} alignItems="flex-start">
+      <Paper className={index % 2 === 0 ? styles.hookContainer : styles.hookContainerAlt}>
         <ListItemAvatar>
           <Avatar
             src={userImg}
@@ -37,24 +39,32 @@ export default function Hook({
           />
         </ListItemAvatar>
         <ListItemText
-          primary={`${player.username} ${readableDate}`}
+          primary={`${player} ${readableDate}`}
           secondary={
             (
-              <>
-                <Typography
-                  sx={{ display: 'inline' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {hookContent}
-                </Typography>
-                <Player url={audioUrl} />
-              </>
+              <ListItemButton>
+                {hookValue}
+              </ListItemButton>
             )
           }
         />
-      </ListItem>
-    </Paper>
+        <ListItemText
+          primary={hookContent}
+          secondary={
+            (
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {consequence.cause}
+              </Typography>
+            )
+          }
+        />
+        <Player url={audioUrl} />
+      </Paper>
+    </ListItem>
   );
 }

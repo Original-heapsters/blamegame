@@ -23,7 +23,6 @@ export default function MessageLog({
           const sorted = log.sort((a, b) => new Date(a.date) - new Date(b.date));
           setMessageLog(sorted);
         });
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [currentGame]);
 
@@ -40,7 +39,6 @@ export default function MessageLog({
         const sorted = unsorted.sort((a, b) => new Date(a.date) - new Date(b.date));
         return sorted;
       });
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     if (currentGame) {
@@ -51,6 +49,10 @@ export default function MessageLog({
     }
     return () => {};
   }, [socket, currentGame]);
+
+  useEffect(() => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messageLog]);
 
   return (
     <Box className={styles.messageLogContainer}>
@@ -80,7 +82,7 @@ export default function MessageLog({
                 message={message.message}
               />
             )))}
-        <ListItem autoFocus sx={{ height: '88px' }} ref={messagesEndRef} />
+        <ListItem ref={messagesEndRef} />
       </List>
     </Box>
   );

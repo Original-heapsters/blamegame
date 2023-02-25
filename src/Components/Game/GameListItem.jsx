@@ -16,7 +16,7 @@ export default function GameListItem({
       selected={isCurrentGame}
       onClick={clickHandler}
     >
-      <ListItemText primary={game.name} />
+      <ListItemText primary={game.name} sx={{ color: 'secondary.contrastText' }} />
     </ListItemButton>
   );
 }

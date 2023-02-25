@@ -1,11 +1,12 @@
 .commentContainer, .commentContainerAlt {
   display: flex;
-  padding: 10px 20px;
+  width: 100%;
+  padding: 8px 16px;
   margin: 0px 8px 8px 0px;
-/*  background-color: var(--secondary);*/
-  border-radius: 0px 25px 25px 25px;
+  border-radius: 0px 16px 16px 16px;
+  background-color: lightblue;
 }
 
 .commentContainerAlt {
-/*  background-color: var(--secondaryVariant);*/
+  background-color: red;
 }

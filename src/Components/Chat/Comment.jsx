@@ -19,11 +19,10 @@ export default function Comment({
   const readableDate = new Date(date).toLocaleString('en-US');
 
   return (
-    <Paper
-      key={id}
-      className={index % 2 === 0 ? styles.commentContainer : styles.commentContainerAlt}
-    >
-      <ListItem alignItems="flex-start">
+    <ListItem key={id} alignItems="flex-start">
+      <Paper
+        className={index % 2 === 0 ? styles.commentContainer : styles.commentContainerAlt}
+      >
         <ListItemAvatar>
           <Avatar
             src={userImg}
@@ -46,7 +45,7 @@ export default function Comment({
             )
           }
         />
-      </ListItem>
-    </Paper>
+      </Paper>
+    </ListItem>
   );
 }

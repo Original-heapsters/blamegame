@@ -52,7 +52,7 @@ export default function PlayerListItem({
           <Avatar alt={name} src={img} variant="rounded" />
         </StyledBadge>
       </ListItemAvatar>
-      <ListItemText primary={name} secondary={isCurrentUser ? '(you)' : ''} />
+      <ListItemText primary={name} secondary={isCurrentUser ? '(you)' : ''} sx={{ color: 'secondary.contrastText' }} />
     </ListItemButton>
   );
 }
