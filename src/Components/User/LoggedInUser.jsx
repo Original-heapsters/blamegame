@@ -18,7 +18,7 @@ export default function LoggedInUser({
         src={userImg}
         alt={username}
       />
-      <Typography variant="h5" component="div" className={styles.userName} color="primary.contrastText">
+      <Typography variant="h6" component="div" className={styles.userName} color="primary.contrastText">
         {username}
       </Typography>
       <Button variant="contained" color="secondary" className={styles.logoutButton} onClick={logoutHandler}>Logout</Button>

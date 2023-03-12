@@ -14,7 +14,7 @@ export default function GameList({
   return (
     <Box className={styles.gameList} sx={{ backgroundColor: 'primary.main' }}>
       <Paper sx={{ backgroundColor: 'secondary.main' }}>
-        <Typography variant="h5" component="div" sx={{ color: 'secondary.contrastText' }}>
+        <Typography variant="h6" component="div" sx={{ color: 'secondary.contrastText' }}>
           Games
         </Typography>
         <hr />

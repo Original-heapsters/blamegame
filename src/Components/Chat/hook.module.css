@@ -8,5 +8,9 @@
 }
 
 .hookContainerAlt {
-  background-color: red;
+  background-color: lightcoral;
+}
+
+.claimButton {
+  color: red;
 }

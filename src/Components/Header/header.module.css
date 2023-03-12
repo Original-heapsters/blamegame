@@ -12,3 +12,8 @@
 /*	background-color: red;*/
 	margin: 8px;
 }
+
+.debugButton {
+	height: 56px;
+	margin-left: 8px;
+}
