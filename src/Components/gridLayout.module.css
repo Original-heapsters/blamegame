@@ -5,7 +5,7 @@
 }
 
 .headerBlank {
-  height: 4%;
+  height: 7%;
 /*  background-color: red;*/
 }
 
@@ -21,7 +21,6 @@
 }
 
 .sidebar {
-  margin-top: 16px;
   height: 97%;
 /*  border-right: 1px solid grey;*/
   background-color: pink;

@@ -136,7 +136,7 @@ export default function GridLayout() {
         />
       </Grid>
       <Grid container xs={12} className={styles.bodyContainer}>
-        <Grid xs={3} className={styles.sidebar}>
+        <Grid xs={4} md={2} className={styles.sidebar}>
           <GameList
             className={styles.gameList}
             gameList={gameList}
@@ -145,7 +145,7 @@ export default function GridLayout() {
           />
           <PlayerList playerList={playerList} loggedInUser={loggedInUser} />
         </Grid>
-        <Grid container xs={9} className={styles.interfaceContainer}>
+        <Grid container xs={8} md={10} className={styles.interfaceContainer}>
           <Grid xs={12} className={styles.gameName}>
             {
               currentGame

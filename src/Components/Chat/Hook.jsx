@@ -1,9 +1,7 @@
 import React from 'react';
-import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Player from '../Util/Player';
@@ -25,46 +23,70 @@ export default function Hook({
   const readableDate = new Date(date).toLocaleString('en-US');
   const apiServer = REACT_APP_TEST_LOCAL === 'true' ? REACT_APP_API_SERVER_LOCAL : REACT_APP_API_SERVER;
   const audioUrl = `${apiServer}${audio}`;
-  const hookContent = `${hook}: ${consequence.rule}`;
-  const hookValue = `${consequence.points} Points`;
+  // const hookContent = `${hook}: ${consequence.rule}`;
+  // const hookValue = `${consequence.points} Points`;
 
   return (
     <ListItem key={id} alignItems="flex-start">
-      <Paper className={index % 2 === 0 ? styles.hookContainer : styles.hookContainerAlt}>
-        <ListItemAvatar>
-          <Avatar
-            src={userImg}
-            variant="rounded"
-            alt={player.username}
-          />
-        </ListItemAvatar>
-        <ListItemText
-          primary={`${player} ${readableDate}`}
-          secondary={
-            (
-              <ListItemButton>
-                {hookValue}
-              </ListItemButton>
-            )
-          }
-        />
-        <ListItemText
-          primary={hookContent}
-          secondary={
-            (
+      <Grid
+        container
+        className={index % 2 === 0 ? styles.hookContainer : styles.hookContainerAlt}
+      >
+        <Grid container xs={12}>
+          <Grid xs={3} md={1}>
+            <Avatar
+              src={userImg}
+              variant="rounded"
+              alt={player.username}
+            />
+            <Typography
+              sx={{ display: 'inline' }}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+              {player.username}
+            </Typography>
+            <ListItemText
+              primary={player.username}
+            />
+          </Grid>
+          <Grid xs={9} md={11}>
+            <Grid container xs={12}>
               <Typography
-                sx={{ display: 'inline' }}
-                component="span"
+                xs={1}
+                variant="body2"
+                color="text.primary"
+              >
+                {hook}
+              </Typography>
+              <Typography
+                xs={1}
+                variant="body2"
+                color="text.primary"
+              >
+                {consequence.rule}
+              </Typography>
+              <Typography
+                xs={10}
                 variant="body2"
                 color="text.primary"
               >
                 {consequence.cause}
               </Typography>
-            )
-          }
-        />
-        <Player url={audioUrl} />
-      </Paper>
+              <Player url={audioUrl} />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container justifyContent="center">
+          <Typography
+            variant="caption"
+            color="text.secondary"
+          >
+            {readableDate}
+          </Typography>
+        </Grid>
+      </Grid>
     </ListItem>
   );
 }

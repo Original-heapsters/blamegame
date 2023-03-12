@@ -23,6 +23,8 @@ export default function MessageLog({
           const sorted = log.sort((a, b) => new Date(a.date) - new Date(b.date));
           setMessageLog(sorted);
         });
+    } else {
+      setMessageLog([]);
     }
   }, [currentGame]);
 

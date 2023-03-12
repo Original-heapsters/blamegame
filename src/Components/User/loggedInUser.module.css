@@ -1,6 +1,7 @@
 .loggedInUser {
 	display: flex;
 	margin: 8px;
+	height: 100%;
 }
 
 .img {
@@ -10,8 +11,10 @@
 }
 
 .userName {
-	padding: 8px;
+	padding: 4px;
 }
 
 .logoutButton {
+	height: 56px;
+	width: 16px;
 }
